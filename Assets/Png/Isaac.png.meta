@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -11085,11 +11085,11 @@ TextureImporter:
       Isaac_188: -1848163210
       Isaac_299: 450105613
       Isaac_469: 1645486448
+      Isaac_447: 1449856668
       Isaac_3: -216668020
       Isaac_351: -1454481748
       Isaac_230: -925982635
       Isaac_22: 1377947540
-      Isaac_447: 1449856668
       Isaac_25: 1241681860
       Isaac_65: -2113971040
       Isaac_334: 944762362
@@ -11144,9 +11144,9 @@ TextureImporter:
       Isaac_273: -990482352
       Isaac_184: 1115471041
       Isaac_520: -1246939473
-      Isaac_152: -1337775884
-      Isaac_512: -1979571503
       Isaac_410: 1073917284
+      Isaac_512: -1979571503
+      Isaac_152: -1337775884
       Isaac_248: -19861297
       Isaac_508: -1780293782
       Isaac_13: 2132641003
@@ -11193,8 +11193,8 @@ TextureImporter:
       Isaac_177: 794895187
       Isaac_29: -1572258304
       Isaac_246: -205477812
-      Isaac_313: 1401032197
       Isaac_355: -464930229
+      Isaac_313: 1401032197
       Isaac_320: -1747262489
       Isaac_77: -1916199939
       Isaac_122: 609732064
@@ -11315,15 +11315,16 @@ TextureImporter:
       Isaac_108: 2109273454
       Isaac_507: -1386448733
       Isaac_198: -1612048042
-      Isaac_360: 2022175134
+      Isaac_506: 172951197
       Isaac_468: 370611984
       Isaac_132: -1389976426
       Isaac_294: -708587539
+      Isaac_360: 2022175134
       Isaac_297: 291151345
       Isaac_301: 692130089
       Isaac_62: -399771543
-      Isaac_285: -1110269458
       Isaac_428: 1055623909
+      Isaac_285: -1110269458
       Isaac_16: -1919995002
       Isaac_166: -737381252
       Isaac_5: -2091406449
@@ -11365,7 +11366,6 @@ TextureImporter:
       Isaac_204: -395592974
       Isaac_261: 1944411911
       Isaac_60: 366824429
-      Isaac_506: 172951197
       Isaac_253: -1207286082
       Isaac_14: -1681025172
       Isaac_415: 320530357
