@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         _ani = gameObject.GetComponent<Animator>();
         rigid=gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer=GetComponent<SpriteRenderer>();
-      
+        
 
     }
 
@@ -31,9 +31,6 @@ public class Player : MonoBehaviour
 
 
         Move();
-
-        Body();
-
         Attack();
 
         h = Input.GetAxisRaw("Horizontal");
@@ -67,6 +64,7 @@ public class Player : MonoBehaviour
             ;
             //transform.Translate(Vector2.right* Time.deltaTime*_speed);
             isIdle = false;
+           
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
@@ -78,6 +76,7 @@ public class Player : MonoBehaviour
             _ani.SetInteger("Move", 2);
 
             isIdle = false;
+            
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -102,58 +101,6 @@ public class Player : MonoBehaviour
             isIdle = true;
         }
     }
-
-    void Body()
-    {
-       
-        if (isIdle)
-        {
-            _ani.SetInteger("MoveBody", 0);
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            _ani.SetInteger("MoveBody", 1); //Right
-            
-            isIdle = false;
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            isIdle = true;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            _ani.SetInteger("MoveBody", 1); //Left
-            
-            isIdle = false;
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            isIdle = true;
-        }
-
-        if (Input.GetKey(KeyCode.W))//Up
-        {
-            _ani.SetInteger("MoveBody", 4);
-            isIdle = false;
-        }
-        if (Input.GetKeyUp(KeyCode.W))//Up
-        {
-            isIdle= true;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            _ani.SetInteger("MoveBody", 4); //Down
-            isIdle = false;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            isIdle = true;
-        }
-
-
-    }
-
 
     void Attack()
     {
