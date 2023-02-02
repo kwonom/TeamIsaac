@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float _speed;
     Animator _ani;
-    bool isIdle = true;
+    public bool isIdle = true;
     float h;
     float v;
    
@@ -50,8 +51,9 @@ public class Player : MonoBehaviour
     }
 
 
-    void Move()
+    public void Move()
     {
+        //bool isIdle = true;
         if (isIdle)
         {
             _ani.SetInteger("Move", 0);
@@ -155,6 +157,10 @@ public class Player : MonoBehaviour
             isIdle = true;
         }
 
-    }   
+    }
 
+    internal void Move(object isidle)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -8,6 +8,10 @@ public class Body : MonoBehaviour
     bool isIdle = true;
     Animator _ani;
     SpriteRenderer spriterenderer;
+
+    
+    
+    
     //Rigidbody2D rigid;
     // Start is called before the first frame update
     void Start()
@@ -34,7 +38,7 @@ public class Body : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             _ani.SetInteger("MoveBody", 1); //Right
-
+            
             isIdle = false;
             spriterenderer.flipX = false;
         }
