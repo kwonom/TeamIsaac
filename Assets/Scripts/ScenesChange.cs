@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,18 +10,22 @@ public class ScenesChange : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetKey(KeyCode.F))
-        {
-            SceneManager.LoadScene("Main");
-        }
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Lobby");
-        }
+    {        
+        
     }    
-    public void Dead()
+    
+    public void OnButtonStart()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void OnButtonLobby()
     {
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void OnButtonRe()
+    {
+        SceneManager.LoadScene("Main");
     }
 }

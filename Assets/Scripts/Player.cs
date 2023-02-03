@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +6,15 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float _speed;
     Animator _ani;
-    public bool isIdle = true;
+    bool isIdle = true;
     float h;
-    float v;
+    float v;    
    
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
-    
+    GameObject _shild;
+    GameObject _tears;
+
     //Vector2 v2 = Vector2.zero;
     // Start is called before the first frame update
 
@@ -22,38 +23,40 @@ public class Player : MonoBehaviour
         _ani = gameObject.GetComponent<Animator>();
         rigid=gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer=GetComponent<SpriteRenderer>();
-        
-
+        _shild = Resources.Load("Prefabs/Shild") as GameObject;
+        _tears = Resources.Load("Prefabs/Tears") as GameObject;
     }
 
     // Update is called once per frame
     void Update()
-    {
-
-
+    {        
         Move();
         Attack();
 
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
-
-    
-        
-
-
-
     }
 
     private void FixedUpdate()
     {
         rigid.velocity = new Vector2(h, v) * _speed;
-        
+
+    }
+    void Attack()
+    {        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject temp = Instantiate(_tears);
+            temp.transform.position = transform.position;
+        }
+        if(Input.GetKeyDown(KeyCode.T)) 
+        {
+            Instantiate(_shild, transform);
+        }
     }
 
-
-    public void Move()
+    void Move()
     {
-        //bool isIdle = true;
         if (isIdle)
         {
             _ani.SetInteger("Move", 0);
@@ -102,39 +105,36 @@ public class Player : MonoBehaviour
         {
             isIdle = true;
         }
-    }
 
-    void Attack()
-    {
-        
+
+
+        // Attack
         if (isIdle)
         {
             _ani.SetInteger("Attack", 0);
-
-
         }
-     
-        if(Input.GetKey(KeyCode.RightArrow))
+
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             _ani.SetInteger("Attack", 1);
 
             isIdle = false;
-            
+
         }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow))
         {
-            isIdle= true;
-            
+            isIdle = true;
+
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             _ani.SetInteger("Attack", 2);
             isIdle = false;
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
-           isIdle= true;
+            isIdle = true;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            _ani.SetInteger("Attack",4);
+            _ani.SetInteger("Attack", 4);
             isIdle = false;
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
@@ -158,9 +158,6 @@ public class Player : MonoBehaviour
         }
 
     }
-
-    internal void Move(object isidle)
-    {
-        throw new NotImplementedException();
-    }
 }
+
+
