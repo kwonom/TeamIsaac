@@ -5,9 +5,17 @@ using UnityEngine;
 public class Body : MonoBehaviour
 {
     [SerializeField] float _speed;
-    bool isIdle = true;
+    bool BodyisIdle = true;
     Animator _ani;
     SpriteRenderer spriterenderer;
+
+    
+    
+    
+<<<<<<< HEAD
+    
+=======
+>>>>>>> parent of cb61fb7 (재커밋)
     //Rigidbody2D rigid;
     // Start is called before the first frame update
     void Start()
@@ -15,64 +23,75 @@ public class Body : MonoBehaviour
         _ani = gameObject.GetComponent<Animator>();
         spriterenderer = gameObject.GetComponent<SpriteRenderer>();
         //rigid = gameObject.GetComponent<Rigidbody2D>();
+       
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         body();
-      
+        
     }
 
     void body()
     {
 
-        if (isIdle)
+        if (BodyisIdle)
         {
             _ani.SetInteger("MoveBody", 0);
         }
+
+
         if (Input.GetKey(KeyCode.D))
         {
             _ani.SetInteger("MoveBody", 1); //Right
+<<<<<<< HEAD
 
+            BodyisIdle = false;
+=======
+            
             isIdle = false;
+>>>>>>> parent of cb61fb7 (재커밋)
             spriterenderer.flipX = false;
-        }
+           
+         }
+       
         if (Input.GetKeyUp(KeyCode.D))
         {
-            isIdle = true;
+            BodyisIdle = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
             
             _ani.SetInteger("MoveBody", 1); //Left
 
-            isIdle = false;
+            BodyisIdle = false;
             spriterenderer.flipX = true;
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            isIdle = true;
+            BodyisIdle = true;
         }
 
         if (Input.GetKey(KeyCode.W))//Up
         {
             _ani.SetInteger("MoveBody", 4);
-            isIdle = false;
+            BodyisIdle = false;
         }
         if (Input.GetKeyUp(KeyCode.W))//Up
         {
-            isIdle = true;
+            BodyisIdle = true;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             _ani.SetInteger("MoveBody", 4); //Down
-            isIdle = false;
+            BodyisIdle = false;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            isIdle = true;
+            BodyisIdle = true;
         }
 
 
