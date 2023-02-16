@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 0
@@ -91,18 +91,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -8126,8 +8114,8 @@ TextureImporter:
       PC Computer - The Binding of Isaac Rebirth - Doors_284: 705075921
       PC Computer - The Binding of Isaac Rebirth - Doors_166: -221002356
       PC Computer - The Binding of Isaac Rebirth - Doors_218: -1731228840
-      PC Computer - The Binding of Isaac Rebirth - Doors_301: 681362821
       PC Computer - The Binding of Isaac Rebirth - Doors_81: -1668701194
+      PC Computer - The Binding of Isaac Rebirth - Doors_301: 681362821
       PC Computer - The Binding of Isaac Rebirth - Doors_190: 1701211462
       PC Computer - The Binding of Isaac Rebirth - Doors_183: 1418173810
       PC Computer - The Binding of Isaac Rebirth - Doors_110: -161575548
@@ -8232,8 +8220,8 @@ TextureImporter:
       PC Computer - The Binding of Isaac Rebirth - Doors_234: -1337612087
       PC Computer - The Binding of Isaac Rebirth - Doors_317: -1142475407
       PC Computer - The Binding of Isaac Rebirth - Doors_2: -488711443
-      PC Computer - The Binding of Isaac Rebirth - Doors_238: -1428145743
       PC Computer - The Binding of Isaac Rebirth - Doors_44: 314639922
+      PC Computer - The Binding of Isaac Rebirth - Doors_238: -1428145743
       PC Computer - The Binding of Isaac Rebirth - Doors_35: 206876327
       PC Computer - The Binding of Isaac Rebirth - Doors_78: 783411856
       PC Computer - The Binding of Isaac Rebirth - Doors_228: -276762195
@@ -8241,16 +8229,16 @@ TextureImporter:
       PC Computer - The Binding of Isaac Rebirth - Doors_27: 387900132
       PC Computer - The Binding of Isaac Rebirth - Doors_192: 1514175801
       PC Computer - The Binding of Isaac Rebirth - Doors_233: 830960023
-      PC Computer - The Binding of Isaac Rebirth - Doors_342: 1250267123
       PC Computer - The Binding of Isaac Rebirth - Doors_143: 260949572
       PC Computer - The Binding of Isaac Rebirth - Doors_25: 1598944563
       PC Computer - The Binding of Isaac Rebirth - Doors_323: -1413573401
+      PC Computer - The Binding of Isaac Rebirth - Doors_342: 1250267123
       PC Computer - The Binding of Isaac Rebirth - Doors_30: -519772874
       PC Computer - The Binding of Isaac Rebirth - Doors_185: -428619935
       PC Computer - The Binding of Isaac Rebirth - Doors_319: -1961487228
       PC Computer - The Binding of Isaac Rebirth - Doors_34: -715273971
-      PC Computer - The Binding of Isaac Rebirth - Doors_235: 940625349
       PC Computer - The Binding of Isaac Rebirth - Doors_216: -639742503
+      PC Computer - The Binding of Isaac Rebirth - Doors_235: 940625349
       PC Computer - The Binding of Isaac Rebirth - Doors_76: -467950539
       PC Computer - The Binding of Isaac Rebirth - Doors_333: -1146061661
       PC Computer - The Binding of Isaac Rebirth - Doors_80: 353419704
@@ -8323,11 +8311,11 @@ TextureImporter:
       PC Computer - The Binding of Isaac Rebirth - Doors_61: 943805589
       PC Computer - The Binding of Isaac Rebirth - Doors_155: 553289578
       PC Computer - The Binding of Isaac Rebirth - Doors_58: -1484211666
-      PC Computer - The Binding of Isaac Rebirth - Doors_175: 985229718
-      PC Computer - The Binding of Isaac Rebirth - Doors_177: -1780506950
       PC Computer - The Binding of Isaac Rebirth - Doors_114: -1021773016
-      PC Computer - The Binding of Isaac Rebirth - Doors_260: -1225832478
+      PC Computer - The Binding of Isaac Rebirth - Doors_177: -1780506950
+      PC Computer - The Binding of Isaac Rebirth - Doors_175: 985229718
       PC Computer - The Binding of Isaac Rebirth - Doors_329: -1686181269
+      PC Computer - The Binding of Isaac Rebirth - Doors_260: -1225832478
       PC Computer - The Binding of Isaac Rebirth - Doors_159: -2097874357
       PC Computer - The Binding of Isaac Rebirth - Doors_269: 605967381
       PC Computer - The Binding of Isaac Rebirth - Doors_176: -425530796

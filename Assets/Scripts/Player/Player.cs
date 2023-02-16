@@ -18,6 +18,14 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
 
+    public GameObject tear;
+    public float maxShotDelay;
+    public float curShotDelay;
+
+        PlayerBullet pb = new PlayerBullet();
+
+
+
     //Vector2 v2 = Vector2.zero;
     // Start is called before the first frame update
 
@@ -33,17 +41,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        curShotDelay += Time.deltaTime;
 
 
         Move();
         Attack();
     }
 
-    public void hitted()
-    {
-        _hp -= 5;      
-        
-    }
+    
 
 
     public void Move()
@@ -102,21 +107,33 @@ public class Player : MonoBehaviour
         }
     }
 
+   
+
     void Attack()
     {
+
         
         if (AttackisIdle)
         {
             _ani.SetInteger("Attack", 0);
+           
 
 
         }
      
         if(Input.GetKey(KeyCode.RightArrow))
         {
+            AttackisIdle = false;
+            if (curShotDelay > maxShotDelay)
+            {
             _ani.SetInteger("Attack", 1);
 
-            AttackisIdle = false;
+                GameObject Bullet = Instantiate(tear, transform.position + Vector3.right*0.4f, transform.rotation);
+                Rigidbody2D rigid = Bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.right * _speed, ForceMode2D.Impulse);  //AddForce(Vec): Vec의 방향과 크기로 힘을 줌
+
+                curShotDelay = 0;
+            }
             
         }
         if(Input.GetKeyUp(KeyCode.RightArrow))
