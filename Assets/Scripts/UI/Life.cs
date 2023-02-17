@@ -13,7 +13,6 @@ public class Life : MonoBehaviour
     public Sprite halfHeart;
     public Sprite fullHeart;
 
-    Player player;
 
 
    // Sprite 
@@ -22,6 +21,8 @@ public class Life : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    
+        
         
         
 
