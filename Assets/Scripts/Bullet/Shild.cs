@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Shild : MonoBehaviour
 {
+    [SerializeField] Transform Player;
     float _time = 0f;
+    int _hp;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +17,18 @@ public class Shild : MonoBehaviour
     void Update()
     {
         ShildItem();
-    }
+    }    
     public void ShildItem()
-    {
+    {        
         _time += Time.deltaTime;
         transform.localPosition = new Vector3(Mathf.Cos(_time), Mathf.Sin(_time), 0) * 1.5f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Monster")
+        {
+            _hp -= 10;
+        }
     }
 }
