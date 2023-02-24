@@ -10,31 +10,33 @@ public class Player : MonoBehaviour
     [SerializeField] int _hp;
     [SerializeField] Life _life;
     [SerializeField] GameObject ShildItem;
+
     Animator _ani;
     //bool MoveisIdle = true;
     bool isIdle = true;
     bool AttackisIdle = true;
-   
+
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
 
-    
     public GameObject tear;
     public float maxShotDelay;
     public float curShotDelay;
     GameObject Shild;
 
+    
 
 
-    //Vector2 v2 = Vector2.zero;
-    // Start is called before the first frame update
 
+    
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-        rigid =gameObject.GetComponent<Rigidbody2D>();
-        spriteRenderer=GetComponent<SpriteRenderer>();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+        rigid = gameObject.GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+
 
     }
 
@@ -43,12 +45,11 @@ public class Player : MonoBehaviour
     {
         curShotDelay += Time.deltaTime;
 
+        
 
         Move();
         Attack();
     }
-
-    
 
 
     public void Move()
@@ -63,9 +64,9 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) //Right
         {
             _ani.SetInteger("Move", 1);
-           transform.Translate(Vector2.right* Time.deltaTime*_speed);
+            transform.Translate(Vector2.right * Time.deltaTime * _speed);
             isIdle = false;
-           
+
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
             _ani.SetInteger("Move", 2);
             transform.Translate(Vector2.left * Time.deltaTime * _speed);
             isIdle = false;
-            
+
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -107,45 +108,52 @@ public class Player : MonoBehaviour
         }
     }
 
-   
+
 
     void Attack()
     {
 
-        
+
         if (AttackisIdle)
         {
             _ani.SetInteger("Attack", 0);
-           
-
-
         }
-     
-        if(Input.GetKey(KeyCode.RightArrow))
+
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
-            _ani.SetInteger("Attack", 1);
+                _ani.SetInteger("Attack", 1);
 
-                GameObject Bullet = Instantiate(tear, transform.position + Vector3.right*0.4f, transform.rotation);
-                Rigidbody2D rigid = Bullet.GetComponent<Rigidbody2D>();
-                rigid.AddForce(Vector2.right * _speed, ForceMode2D.Impulse);  //AddForce(Vec): Vec¿« πÊ«‚∞˙ ≈©±‚∑Œ »˚¿ª ¡‹
+                GameObject Bullet = Instantiate(tear, transform.position + Vector3.right , transform.rotation);
+                Bullet.GetComponent<PlayerBullet>().Init(Vector2.right);
+                //Rigidbody2D _rigid = Bullet.GetComponent<Rigidbody2D>();
+                //_rigid.AddForce(Vector2.right * _speed, ForceMode2D.Impulse);  //AddForce(Vec): Vec¿« πÊ«‚∞˙ ≈©±‚∑Œ »˚¿ª ¡‹
+                
+                curShotDelay = 0;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            AttackisIdle = true;
+
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            AttackisIdle = false;
+            if (curShotDelay > maxShotDelay)
+            {
+                _ani.SetInteger("Attack", 2);
+
+                GameObject Bullet = Instantiate(tear,transform.position + Vector3.left,transform.rotation);
+                Bullet.GetComponent<PlayerBullet>().Init(Vector2.left);               
+                //Rigidbody2D _rigid = Bullet.GetComponent<Rigidbody2D>();
+                //_rigid.AddForce(Vector2.left*_speed, ForceMode2D.Impulse);
 
                 curShotDelay = 0;
             }
-            
-        }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            AttackisIdle = true;
-            
-        }
-
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            _ani.SetInteger("Attack", 2);
-            AttackisIdle = false;
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
@@ -154,8 +162,21 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            _ani.SetInteger("Attack", 3);
             AttackisIdle = false;
+            if(curShotDelay> maxShotDelay)
+            {
+            _ani.SetInteger("Attack", 3);
+            
+
+                GameObject Bullet = Instantiate(tear, transform.position + Vector3.up*3.0f, transform.rotation);
+                Bullet.GetComponent <PlayerBullet>().Init(Vector2.up);
+                //Rigidbody2D _rigid = Bullet.GetComponent<Rigidbody2D>();
+                //_rigid.AddForce(Vector2.up*_speed, ForceMode2D.Impulse);
+                
+
+                curShotDelay = 0;
+            }
+
         }
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
@@ -164,8 +185,19 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            _ani.SetInteger("Attack",4);
             AttackisIdle = false;
+            if(curShotDelay> maxShotDelay)
+            {
+            _ani.SetInteger("Attack", 4);
+
+            GameObject Bullet = Instantiate(tear,transform.position+ Vector3.down, transform.rotation);
+                Bullet.GetComponent<PlayerBullet>().Init(Vector2.down);
+
+                //Rigidbody2D _rigid = Bullet.GetComponent<Rigidbody2D>();
+                //_rigid.AddForce(Vector2.down * _speed, ForceMode2D.Impulse);
+
+                curShotDelay = 0;
+            }
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
@@ -182,7 +214,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "ShildItem")
         {
-            Debug.Log("æ∆¿Ã≈€ »πµÊ");
+            Debug.Log(" ");
             GameObject Temp= Instantiate(ShildItem,transform);
             collision.gameObject.SetActive(false);
         }
