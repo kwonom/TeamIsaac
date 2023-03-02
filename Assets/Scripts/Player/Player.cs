@@ -1,14 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] float _speed;
     [SerializeField] int _hp;
-    [SerializeField] Life _life;
+    public float minHp;
     [SerializeField] GameObject ShildItem;
 
     Animator _ani;
@@ -23,7 +25,8 @@ public class Player : MonoBehaviour
     public float maxShotDelay;
     public float curShotDelay;
     GameObject Shild;
-
+    GameUI _uiPanel;
+    public GameObject Body;
     
 
 
@@ -49,8 +52,30 @@ public class Player : MonoBehaviour
 
         Move();
         Attack();
+       
     }
 
+  
+
+    public void Hitted(int dmg)
+    {
+        
+            _hp -= dmg;
+        _ani.SetTrigger("Hitted");
+        Body.SetActive(false);
+        if (_hp <minHp)
+        {
+            _ani.SetTrigger("Dead");
+            Body.SetActive(false);
+
+                       // SceneManager.LoadScene("Main");
+        }
+    }
+    void bodyControl()
+    {
+        Body.SetActive(true);
+        //Hitted Dead EatItem 애니메이션 실행할때 false
+    }
 
     public void Move()
     {
@@ -206,17 +231,39 @@ public class Player : MonoBehaviour
 
     }
 
-    internal void Move(object isidle)
-    {
-        throw new NotImplementedException();
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
+    //internal void Move(object isidle)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+  
+     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "ShildItem")
         {
-            Debug.Log(" ");
+            Debug.Log("아이템 획득");
             GameObject Temp= Instantiate(ShildItem,transform);
             collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.tag == "Item")
+        {
+            Item item=collision.gameObject.GetComponent<Item>();
+            switch(item.type)
+            {
+                case "Coin":
+                    
+                    break;
+                case "Bomb":
+                    break;
+                case "Key":
+                    break;
+            }
+            Destroy(collision.gameObject);
+        }
+        else if(collision.gameObject.tag == "Damage")
+        {
+            Hitted(5);
+
         }
     }
 }

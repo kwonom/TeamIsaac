@@ -796,6 +796,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _hp: 0
+  ShildItem: {fileID: 0}
+  tear: {fileID: 0}
+  maxShotDelay: 0
+  curShotDelay: 0
 --- !u!212 &2041173577
 SpriteRenderer:
   m_ObjectHideFlags: 0
