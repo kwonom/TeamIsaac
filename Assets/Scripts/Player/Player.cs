@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] int _hp;
     public float minHp;
     [SerializeField] GameObject ShildItem;
+    [SerializeField] PooterController _pooterCon;
 
     Animator _ani;
     //bool MoveisIdle = true;
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
         rigid = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -135,7 +136,7 @@ public class Player : MonoBehaviour
 
 
 
-    void Attack()
+    public void Attack()
     {
 
 
