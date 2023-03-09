@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Body : MonoBehaviour
 {
-    [SerializeField] float _speed;
+    
     bool BodyisIdle = true;
     Animator _ani;
     SpriteRenderer spriterenderer;

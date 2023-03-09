@@ -6,55 +6,60 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    public int maxHeart;
-    public int currentHeart;
+    //public int maxHeart;
+    //public int currentHeart;
 
-    public Image[] heart;
-    public Sprite emptyHeart;
-    public Sprite halfHeart;
-    public Sprite fullHeart;
-
-  
+    public GameObject[] heart;
     public Text[] _text;
     
-
-
-   
-    void Update()
+    public void HeartIcon()
     {
-        for(int i=0;i<heart.Length;i++)
+         Player player=GetComponent<Player>();
+        switch (player._hp)
         {
-            if (i< currentHeart)
-            {
-                heart[i].sprite = fullHeart;
-            }
-            //else if (i < currentHeart -5) //_hp-=5
-            //{
-            //    heart[i].sprite = halfHeart;
-            //}
-            else
-            {
-                heart[i].sprite = emptyHeart;
-            }
+            case 25 :
+                heart[0].SetActive(false);
+                heart[1].SetActive(true);
+                break;
+            case 20 :
+                heart[1].SetActive(false);
+                heart[2].SetActive(true);
+                break;
+            case 15:
+                heart[2].SetActive(false);
+                heart[3].SetActive(true);
+                break;
+            case 10:
+                heart[3].SetActive(false);
+                heart[4].SetActive(true);
+                break;
+            case 5:
+                heart[4].SetActive(false);
+                heart[5].SetActive(true);
+                break;
 
-            if (i < maxHeart)
-            {
-                heart[i].enabled=true;
-            }
-            else
-            {
-                heart[i].enabled=false;
-            }
-
-
-
-
+    
         }
 
+       
 
+    }
+
+    public void scoreText()
+    {
+        for(int index=0;index<_text.Length;index++)
+        {
+            
+        }
     }
 
 
 
 
+    void Update()
+    {
+      //  HeartIcon();
+
+
+    }
 }

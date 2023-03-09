@@ -5,14 +5,17 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.TextCore;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] float _speed;
-    [SerializeField] int _hp;
+    public int _hp;
     public float minHp;
+    [SerializeField] Animator _faceAni;
+    [SerializeField] Animator _bodyAni;
+    [SerializeField] Animator _FullAni;
     [SerializeField] GameObject ShildItem;
-    [SerializeField] PooterController _pooterCon;
 
     Animator _ani;
     //bool MoveisIdle = true;
@@ -27,7 +30,8 @@ public class Player : MonoBehaviour
     public float curShotDelay;
     GameObject Shild;
     GameUI _uiPanel;
-    public GameObject Body;
+    public  GameObject Face;
+    public GameObject FullAni;
     
 
 
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
         rigid = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -58,38 +62,50 @@ public class Player : MonoBehaviour
 
   
 
-    public void Hitted(int dmg)
+    public void Hitted()
     {
+         
         
-            _hp -= dmg;
-        _ani.SetTrigger("Hitted");
-        Body.SetActive(false);
-        if (_hp <minHp)
+        if (_hp <= minHp)//Dead
         {
-            _ani.SetTrigger("Dead");
-            Body.SetActive(false);
-
-                       // SceneManager.LoadScene("Main");
+            Face.SetActive(false);
+            FullAni.SetActive(true);
+            _FullAni.SetTrigger("Dead");
+            
+            
         }
+        else
+        {
+            _hp -= 5;
+            Face.SetActive(false);
+            FullAni.SetActive(true);
+            _FullAni.SetTrigger("Hitted");
+            Invoke("ReturnFace", 0.6f);
+        }
+
     }
-    void bodyControl()
+
+    void ReturnFace()
     {
-        Body.SetActive(true);
-        //Hitted Dead EatItem 애니메이션 실행할때 false
+        Face.SetActive(true);
+        FullAni.SetActive(false);
     }
+
+   
+
 
     public void Move()
     {
         //bool isIdle = true;
         if (isIdle)
         {
-            _ani.SetInteger("Move", 0);
+           // _ani.SetInteger("Move", 0);
 
 
         }
         if (Input.GetKey(KeyCode.D)) //Right
         {
-            _ani.SetInteger("Move", 1);
+            //_ani.SetInteger("Move", 1);
             transform.Translate(Vector2.right * Time.deltaTime * _speed);
             isIdle = false;
 
@@ -101,7 +117,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A)) //Left
         {
-            _ani.SetInteger("Move", 2);
+           // _ani.SetInteger("Move", 2);
             transform.Translate(Vector2.left * Time.deltaTime * _speed);
             isIdle = false;
 
@@ -112,7 +128,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.W)) //Up
         {
-            _ani.SetInteger("Move", 3);
+           // _ani.SetInteger("Move", 3);
             transform.Translate(Vector2.up * Time.deltaTime * _speed);
 
             isIdle = false;
@@ -123,7 +139,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S)) //Down
         {
-            _ani.SetInteger("Move", 4);
+           // _ani.SetInteger("Move", 4);
             transform.Translate(Vector2.down * Time.deltaTime * _speed);
 
             isIdle = false;
@@ -136,13 +152,13 @@ public class Player : MonoBehaviour
 
 
 
-    public void Attack()
+    void Attack()
     {
 
 
         if (AttackisIdle)
         {
-            _ani.SetInteger("Attack", 0);
+           // _ani.SetInteger("Attack", 0);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -150,7 +166,7 @@ public class Player : MonoBehaviour
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
-                _ani.SetInteger("Attack", 1);
+                //_ani.SetInteger("Attack", 1);
 
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.right , transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.right);
@@ -171,7 +187,7 @@ public class Player : MonoBehaviour
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
-                _ani.SetInteger("Attack", 2);
+               // _ani.SetInteger("Attack", 2);
 
                 GameObject Bullet = Instantiate(tear,transform.position + Vector3.left,transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.left);               
@@ -183,15 +199,15 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            AttackisIdle = true;
+           // AttackisIdle = true;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            AttackisIdle = false;
+            //AttackisIdle = false;
             if(curShotDelay> maxShotDelay)
             {
-            _ani.SetInteger("Attack", 3);
+           // _ani.SetInteger("Attack", 3);
             
 
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.up*3.0f, transform.rotation);
@@ -206,15 +222,15 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
-            AttackisIdle = true;
+          //  AttackisIdle = true;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            AttackisIdle = false;
+           // AttackisIdle = false;
             if(curShotDelay> maxShotDelay)
             {
-            _ani.SetInteger("Attack", 4);
+            //_ani.SetInteger("Attack", 4);
 
             GameObject Bullet = Instantiate(tear,transform.position+ Vector3.down, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.down);
@@ -227,7 +243,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            AttackisIdle = true;
+           // AttackisIdle = true;
         }
 
     }
@@ -243,13 +259,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "ShildItem")
         {
             Debug.Log("아이템 획득");
-            GameObject Temp= Instantiate(ShildItem,transform);
+            GameObject Temp = Instantiate(ShildItem, transform);
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Item")
         {
-            Item item=collision.gameObject.GetComponent<Item>();
-            switch(item.type)
+            Item item = collision.gameObject.GetComponent<Item>();
+            GameUI ui= item.gameObject.GetComponent<GameUI>();
+            switch (item.type)
             {
                 case "Coin":
                     
@@ -261,10 +278,13 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        else if(collision.gameObject.tag == "Damage")
+        else if (collision.gameObject.tag == "Damage")
         {
-            Hitted(5);
-
+            Hitted();
+            _uiPanel.HeartIcon();
         }
+        
+        
     }
 }
+
