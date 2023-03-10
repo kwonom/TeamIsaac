@@ -6,22 +6,34 @@ public class Boom : MonoBehaviour
 {
 
     public GameObject after;
+    public GameObject BoomItem;
     // Start is called before the first frame update
     void Start()
     {
 
-        after.SetActive(true);
+        
        
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void boomEffect(int dmg)
     {
-        Destroy(collision.gameObject);
+        BoomItem.SetActive(true);
+        Invoke("afterEffect", 1.2f);
+        Invoke("offEffect", 2.9f);
     }
+    void afterEffect()
+    {
+        after.SetActive(true);
+    }
+    void offEffect()
+    {
+        after.SetActive(false);
+    }
+
+   
 
     // Update is called once per frame
     void Update()
     {
-        
+        boomEffect(5);
     }
 }

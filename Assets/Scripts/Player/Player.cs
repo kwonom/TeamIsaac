@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _FullAni;
     [SerializeField] GameObject ShildItem;
 
+    [SerializeField] GameUI _gameUI;
+
+    public int maxBoom;
+
     Animator _ani;
     //bool MoveisIdle = true;
     bool isIdle = true;
@@ -32,6 +36,7 @@ public class Player : MonoBehaviour
     GameUI _uiPanel;
     public  GameObject Face;
     public GameObject FullAni;
+    bool isboomTime=false;
     
 
 
@@ -40,7 +45,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+       // Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
         rigid = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -57,12 +62,22 @@ public class Player : MonoBehaviour
 
         Move();
         Attack();
+        Boom();
        
     }
+    void Boom()
+    {
+        if (!Input.GetKeyDown(KeyCode.E))
+            return;
+        if (isboomTime)
+            return;
 
+        Boom _boom = GetComponent<Boom>();
+        _boom.boomEffect(5);
+    }
   
 
-    public void Hitted()
+    public void Hitted(int dmg)
     {
          
         
@@ -76,7 +91,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _hp -= 5;
+            _hp -= dmg;
             Face.SetActive(false);
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Hitted");
@@ -265,23 +280,26 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.tag == "Item")
         {
             Item item = collision.gameObject.GetComponent<Item>();
-            GameUI ui= item.gameObject.GetComponent<GameUI>();
             switch (item.type)
             {
                 case "Coin":
-                    
+                    _gameUI.addCoin();
+                   
                     break;
                 case "Bomb":
+                    _gameUI.addBoom();
                     break;
                 case "Key":
+                    _gameUI.addKey();
+
                     break;
             }
-            Destroy(collision.gameObject);
+                    Destroy(collision.gameObject);
         }
         else if (collision.gameObject.tag == "Damage")
         {
-            Hitted();
-            _uiPanel.HeartIcon();
+            Hitted(5);
+            //_uiPanel.HeartIcon();
         }
         
         

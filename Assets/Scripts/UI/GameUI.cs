@@ -11,54 +11,49 @@ public class GameUI : MonoBehaviour
 
     public GameObject[] heart;
     public Text[] _text;
-    
+
+    public int life;
+
+     int _coin;
+     int _key;
+     int _boom;
+    private void Start()
+    {
+        _boom += 3;
+        _text[1].text = _boom.ToString("d2");
+    }
     public void HeartIcon()
     {
-         Player player=GetComponent<Player>();
-        switch (player._hp)
+        Player player = GetComponent<Player>();
+        player._hp = life;
+        for(int index = 0; index < life; index++)
         {
-            case 25 :
-                heart[0].SetActive(false);
-                heart[1].SetActive(true);
-                break;
-            case 20 :
-                heart[1].SetActive(false);
-                heart[2].SetActive(true);
-                break;
-            case 15:
-                heart[2].SetActive(false);
-                heart[3].SetActive(true);
-                break;
-            case 10:
-                heart[3].SetActive(false);
-                heart[4].SetActive(true);
-                break;
-            case 5:
-                heart[4].SetActive(false);
-                heart[5].SetActive(true);
-                break;
 
-    
         }
-
-       
-
     }
 
-    public void scoreText()
+   
+    public void addCoin()
     {
-        for(int index=0;index<_text.Length;index++)
-        {
-            
-        }
+        _coin++;
+        _text[0].text = _coin.ToString("d2");
     }
-
+    public void addBoom()
+    {
+        _boom++;
+        _text[1].text = _boom.ToString("d2");
+    }
+    public void addKey()
+    {
+        _key++;
+        _text[2].text = _key.ToString("d2");//d2 소수점 위로  / f2 소수점 아래로 
+    }
 
 
 
     void Update()
     {
-      //  HeartIcon();
+     
 
 
     }

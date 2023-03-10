@@ -78,3 +78,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Scripts/Bullet/HorfBullet.cs
+Assets/Scripts/Bullet/HorfBullet.cs.meta
+Assets/Scripts/Monster/Pooter.cs
+Assets/Scripts/Monster/Pooter.cs.meta
+Assets/Scripts/Monster/PooterController.cs
+Assets/Scripts/Monster/PooterController.cs.meta
