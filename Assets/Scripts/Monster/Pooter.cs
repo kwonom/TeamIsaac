@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Pooter : MonoBehaviour
 {
-    Animator _ani;
-    MonsterController _mc;
-    Transform _hero;
-
     float _speed;
+    PooterController _pCon;
+    Transform _hero;
+    Animator _ani;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +23,14 @@ public class Monster : MonoBehaviour
         move();
     }
 
-    public void init(MonsterController mc, Transform hero)
+    public void Init(PooterController pCon, Transform hero)
     {
         gameObject.SetActive(true);
         _hero = hero;
-        _mc = mc;
-        _speed = 2;
-        Vector3 ranPos = _hero.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * 6;
-        transform.position = ranPos;
+        _pCon = pCon;
+        _speed = 5;
+        Vector3 ranpos = _hero.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f)).normalized * 6;
+        transform.position = ranpos;
     }
 
     void move()
