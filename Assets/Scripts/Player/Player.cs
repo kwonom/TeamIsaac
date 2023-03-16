@@ -18,13 +18,18 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject ShildItem;
 
     [SerializeField] GameUI _gameUI;
+    
 
-    public int maxBoom;
+    public int boom; //ÇöÀç ÆøÅº °³¼ö
+    public GameObject boomEffect;
+    
 
     Animator _ani;
     //bool MoveisIdle = true;
     bool isIdle = true;
     bool AttackisIdle = true;
+    bool isAction;
+    bool isDead;
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
@@ -32,11 +37,11 @@ public class Player : MonoBehaviour
     public GameObject tear;
     public float maxShotDelay;
     public float curShotDelay;
-    GameObject Shild;
+    public GameObject Shild;
+   
     GameUI _uiPanel;
     public  GameObject Face;
     public GameObject FullAni;
-    bool isboomTime=false;
     
 
 
@@ -45,7 +50,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-       // Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
         rigid = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -59,33 +64,41 @@ public class Player : MonoBehaviour
         curShotDelay += Time.deltaTime;
 
         
-
+      
         Move();
         Attack();
         Boom();
+       
        
     }
     void Boom()
     {
         if (!Input.GetKeyDown(KeyCode.E))
             return;
-        if (isboomTime)
+        if (boom == 0)
             return;
+        //if (isBoomTime)
+        //    return;
+        boom--;
+        _gameUI.minusBoom();
 
-        Boom _boom = GetComponent<Boom>();
-        _boom.boomEffect(5);
+      GameObject _boom = Instantiate(boomEffect,transform.position,transform.rotation);
+        _boom.GetComponent<Boom>().boomEffect(5);
+
     }
-  
+ 
 
     public void Hitted(int dmg)
     {
          
         
-        if (_hp <= minHp)//Dead
+        if (_hp == minHp)//Dead
         {
             Face.SetActive(false);
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Dead");
+            isAction = false;
+            isDead = true;
             
             
         }
@@ -96,7 +109,23 @@ public class Player : MonoBehaviour
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Hitted");
             Invoke("ReturnFace", 0.6f);
+            _gameUI.HeartIcon(dmg);
+
         }
+
+        
+
+    }
+
+    void GetItem()
+    {
+        Debug.Log("¾ÆÀÌÅÛ È¹µæ");
+        Face.SetActive(false);
+        FullAni.SetActive(true);
+        _FullAni.SetTrigger("GetItem");
+        Invoke("ReturnFace", 1f);
+        GameObject Temp = Instantiate(ShildItem, transform);
+
 
     }
 
@@ -111,6 +140,8 @@ public class Player : MonoBehaviour
 
     public void Move()
     {
+        isAction = true;
+        
         //bool isIdle = true;
         if (isIdle)
         {
@@ -163,13 +194,14 @@ public class Player : MonoBehaviour
         {
             isIdle = true;
         }
+        
     }
 
 
 
     void Attack()
     {
-
+        isAction = true;
 
         if (AttackisIdle)
         {
@@ -271,13 +303,8 @@ public class Player : MonoBehaviour
   
      void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "ShildItem")
-        {
-            Debug.Log("¾ÆÀÌÅÛ È¹µæ");
-            GameObject Temp = Instantiate(ShildItem, transform);
-            collision.gameObject.SetActive(false);
-        }
-        else if (collision.gameObject.tag == "Item")
+        
+       if (collision.gameObject.tag == "Item")
         {
             Item item = collision.gameObject.GetComponent<Item>();
             switch (item.type)
@@ -287,22 +314,33 @@ public class Player : MonoBehaviour
                    
                     break;
                 case "Bomb":
+                    boom++;
                     _gameUI.addBoom();
                     break;
                 case "Key":
                     _gameUI.addKey();
 
                     break;
+                case "Shild":
+                    
+                  //  collision.gameObject.SetActive(false);
+                    GetItem();
+                    break;
+
             }
                     Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.tag == "Damage")
+        else if (collision.gameObject.tag == "Damage"||collision.gameObject.tag=="Boom")
         {
+            
             Hitted(5);
-            //_uiPanel.HeartIcon();
+            _gameUI.HeartIcon(_hp);
+            
+           
         }
-        
-        
+
+
+
     }
 }
 

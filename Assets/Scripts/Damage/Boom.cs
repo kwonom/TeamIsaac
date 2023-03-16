@@ -7,7 +7,10 @@ public class Boom : MonoBehaviour
 
     public GameObject after;
     public GameObject BoomItem;
-    // Start is called before the first frame update
+    [SerializeField] BoxCollider2D boxCollider;
+    
+
+
     void Start()
     {
 
@@ -19,14 +22,26 @@ public class Boom : MonoBehaviour
         BoomItem.SetActive(true);
         Invoke("afterEffect", 1.2f);
         Invoke("offEffect", 2.9f);
+        boxCollider.enabled = false;
+        //BoxCollider2D boxcollider = after.GetComponent<BoxCollider2D>();
+        //boxcollider.enabled = false;
+    
     }
-    void afterEffect()
+    public void afterEffect()
     {
+        
         after.SetActive(true);
+        BoxCollider2D boxcollider = after.GetComponent<BoxCollider2D>();
+        boxCollider.enabled = true;
+     
+
+
     }
     void offEffect()
     {
         after.SetActive(false);
+        Destroy(gameObject);
+      
     }
 
    
@@ -34,6 +49,7 @@ public class Boom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        boomEffect(5);
+      
+        
     }
 }

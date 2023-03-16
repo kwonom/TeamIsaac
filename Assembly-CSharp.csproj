@@ -69,9 +69,10 @@
     <Compile Include="Assets\Scripts\Player\Face.cs" />
     <Compile Include="Assets\Scripts\Monster\Horf.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerBullet.cs" />
-    <Compile Include="Assets\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Monster\PooterController.cs" />
     <Compile Include="Assets\Scripts\Bullet\Shild.cs" />
+    <Compile Include="Assets\Scripts\Damage\Boulder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
