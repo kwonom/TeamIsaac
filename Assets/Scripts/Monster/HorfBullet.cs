@@ -19,6 +19,11 @@ public class HorfBullet : MonoBehaviour
     void Update()
     {
         transform.Translate(_dir * Time.deltaTime * _speed);
+        _lifeTimer += Time.deltaTime;
+        if(_lifeTimer > 7)
+        {
+            ReMove(); 
+        }
     }
 
     public void Init(Transform target)
@@ -32,13 +37,6 @@ public class HorfBullet : MonoBehaviour
         _dir = dir;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.name == "Player")
-        {
-            ReMove();
-        }
-    }
 
     public void ReMove()
     {
