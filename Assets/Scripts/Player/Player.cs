@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.TextCore;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject ShildItem;
 
     [SerializeField] GameUI _gameUI;
-    
+    [SerializeField] CameraMove _cameraMove;
 
     public int boom; //ÇöÀç ÆøÅº °³¼ö
     public GameObject boomEffect;
@@ -42,11 +43,16 @@ public class Player : MonoBehaviour
     GameUI _uiPanel;
     public  GameObject Face;
     public GameObject FullAni;
+
+    public bool isTouchTop;
+    public bool isTouchBottom;
+    public bool isTouchRight;
+    public bool isTouchLeft;
+
+    
     
 
 
-
-    
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
@@ -62,23 +68,41 @@ public class Player : MonoBehaviour
     void Update()
     {
         curShotDelay += Time.deltaTime;
-
-        
-      
         Move();
         Attack();
         Boom();
-       
-       
+
+        
+
+        Vector3 curPos = transform.position;
+
+        Vector3 target1 = new Vector3(0, 25f,0);//top
+        Vector3 target2 = new Vector3(0, -25f,0);//bottom
+        Vector3 target3 = new Vector3(25f,0,0);//Right
+        Vector3 target4 = new Vector3(-25f, 0,0);//Left
+
+        if (isTouchTop)
+            transform.position += Vector3.Lerp(curPos, target1, 1f);
+        if (isTouchBottom)
+            transform.position += Vector3.Lerp(curPos, target2, 1f);
+        if (isTouchRight)
+            transform.position += Vector3.Lerp(curPos, target3, 1f);
+        if (isTouchLeft)
+            transform.position += Vector3.Lerp(curPos, target4, 1f);
+
+
     }
+       
+    
     void Boom()
     {
+        if (isDead)
+            return;
         if (!Input.GetKeyDown(KeyCode.E))
             return;
         if (boom == 0)
             return;
-        //if (isBoomTime)
-        //    return;
+       
         boom--;
         _gameUI.minusBoom();
 
@@ -94,12 +118,12 @@ public class Player : MonoBehaviour
         
         if (_hp == minHp)//Dead
         {
+            isDead = true;
             Face.SetActive(false);
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Dead");
             isAction = false;
-            isDead = true;
-            
+           
             
         }
         else
@@ -140,8 +164,8 @@ public class Player : MonoBehaviour
 
     public void Move()
     {
-        isAction = true;
-        
+        if (isDead) return;
+
         //bool isIdle = true;
         if (isIdle)
         {
@@ -195,13 +219,15 @@ public class Player : MonoBehaviour
             isIdle = true;
         }
         
+
     }
 
 
 
     void Attack()
     {
-        isAction = true;
+        if (isDead)
+            return;
 
         if (AttackisIdle)
         {
@@ -341,6 +367,53 @@ public class Player : MonoBehaviour
 
 
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Border")
+        {
+            switch (collision.gameObject.name)
+            {
+                case "Top":
+                    isTouchTop = true;
+
+                    break;
+                case "Bottom":
+                    isTouchBottom = true;
+                    break;
+                case "Right":
+                    isTouchRight = true;
+                    break;
+                case "Left":
+                    isTouchLeft = true;
+                    break;
+
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Border")
+        {
+            switch (collision.gameObject.name)
+            {
+                case "Top":
+                    isTouchTop = false;
+                    break;
+                case "Bottom":
+                    isTouchBottom = false;
+                    break;
+                case "Right":
+                    isTouchRight = false;
+                    break;
+                case "Left":
+                    isTouchLeft = false;
+                    break;
+
+            }
+        }
     }
 }
 

@@ -10,7 +10,7 @@ public class Item : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        rigid.velocity= Vector2.zero;
+        //rigid.velocity= Vector2.zero;
     }
 
   

@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\UI\GameUI.cs" />
     <Compile Include="Assets\Scripts\Player\Body.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\CameraMove.cs" />
     <Compile Include="Assets\Scripts\Damage\Damage.cs" />
     <Compile Include="Assets\Scripts\Damage\Boom.cs" />
     <Compile Include="Assets\Scripts\Border.cs" />
