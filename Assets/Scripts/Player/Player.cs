@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] GameUI _gameUI;
     [SerializeField] CameraMove _cameraMove;
 
+    public int _dis;
+    
+
     public int boom; //ÇöÀç ÆøÅº °³¼ö
     public GameObject boomEffect;
     
@@ -56,7 +59,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _ani = gameObject.GetComponent<Animator>();
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
         rigid = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -81,14 +84,28 @@ public class Player : MonoBehaviour
         Vector3 target3 = new Vector3(25f,0,0);//Right
         Vector3 target4 = new Vector3(-25f, 0,0);//Left
 
-        if (isTouchTop)
+        if (isTouchTop&& Vector3.Distance(curPos, target1) < _dis)
+        {
+            
             transform.position += Vector3.Lerp(curPos, target1, 1f);
-        if (isTouchBottom)
+            
+           // isTouchTop = false;
+        }
+        if (isTouchBottom&& Vector3.Distance(curPos, target2) < _dis)
+        {
             transform.position += Vector3.Lerp(curPos, target2, 1f);
-        if (isTouchRight)
+            //isTouchBottom = false;
+        }
+        if (isTouchRight&& Vector3.Distance(curPos, target3) < _dis)
+        {
             transform.position += Vector3.Lerp(curPos, target3, 1f);
-        if (isTouchLeft)
+            //isTouchRight = false;
+        }
+        if (isTouchLeft&& Vector3.Distance(curPos, target4) < _dis)
+        {
             transform.position += Vector3.Lerp(curPos, target4, 1f);
+            //isTouchLeft = false;
+        }
 
 
     }
