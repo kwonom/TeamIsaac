@@ -6,10 +6,11 @@ public class Horf : MonoBehaviour
 {
     [SerializeField] GameObject _horfBullet;
     [SerializeField] Transform _target;
-    
+    [SerializeField] int _attack;
     
     Animator _ani;
-
+    [SerializeField] int _hp = 20;
+    bool _isLive = false;
     
     // Start is called before the first frame update
     void Start()
@@ -42,5 +43,24 @@ public class Horf : MonoBehaviour
         }
     }
 
-    
+    void Hitted(int hitPower)
+    {
+        _hp -= hitPower;
+        
+        if(_hp < 0)
+        {
+            _isLive = false;
+            Destroy(this.gameObject);
+        }
+    }
+
+    public int getAttack()
+    {
+        return _attack;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision);
+    }
 }

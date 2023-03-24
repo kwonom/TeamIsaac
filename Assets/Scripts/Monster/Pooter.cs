@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Pooter : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Pooter : MonoBehaviour
     Animator _ani;
 
     float _speed;
+    int _hp;
+    
+    bool _isLive = false;
     
 
     // Start is called before the first frame update
@@ -29,24 +33,40 @@ public class Pooter : MonoBehaviour
         _hero = hero;
         _pCon = pCon;
         _speed = 5;
+        _hp = 10;
         int random = Random.Range(1, 4);
-        if (random == 1)
-        {
-            transform.position = new Vector3(-27, 16);
-        }
-        else if (random == 2)
-        {
-            transform.position = new Vector3(27, 16);
-        }
-        else if (random == 3)
-        {
-            transform.position = new Vector3(-27, -16);
-        }
-        else if(random == 4) 
-        {
-            transform.position = new Vector3(27, -16);
-        }
+        //if (random == 1)
+        //{
+        //    transform.position = new Vector3(-27, 16);
+        //}
+        //else if (random == 2)
+        //{
+        //    transform.position = new Vector3(27, 16);
+        //}
+        //else if (random == 3)
+        //{
+        //    transform.position = new Vector3(-27, -16);
+        //}
+        //else if(random == 4) 
+        //{
+        //    transform.position = new Vector3(27, -16);
+        //}
 
+        switch (random)
+        {
+            case 1:
+                transform.position = new Vector3(-27, 16);
+                break;
+                case 2:
+                transform.position = new Vector3(27, 16);
+                break;
+                case 3:
+                transform.position = new Vector3(-27, -16);
+                break;
+                case 4:
+                transform.position = new Vector3(27, -16);
+                break;
+        }
 
         //Vector3 ranpos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f));
         //transform.position = ranpos;
@@ -60,7 +80,20 @@ public class Pooter : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("몬스터 삭제");
-        collision.gameObject.GetComponent<Player>();
+        if(collision.gameObject.name == "PlayerBullet")
+        {
+            OnHitted(5);
+        }
+    }
+
+    void OnHitted(int hitPower)
+    {
+        _hp -= hitPower;
+
+        if(_hp < 0)
+        {
+            Destroy(gameObject);
+            _isLive = false;
+        }
     }
 }

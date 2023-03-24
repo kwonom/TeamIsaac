@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4366302667293402888}
   - component: {fileID: -1555106992920120768}
   - component: {fileID: -8096788170915056265}
+  - component: {fileID: 2535876896434277848}
   m_Layer: 7
   m_Name: HorfBullet
   m_TagString: Horf
@@ -115,3 +116,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2535876896434277848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4366302667293402889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a48dcf3aa614e8478f3917b8a39d3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
