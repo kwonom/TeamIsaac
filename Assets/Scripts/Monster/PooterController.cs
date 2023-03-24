@@ -7,6 +7,7 @@ public class PooterController : MonoBehaviour
     [SerializeField] Transform _hero;
     GameObject _pooter;
     List<Pooter> pot = new List<Pooter>();
+    
     // Start is called before the first frame update
     void Start()
     {
