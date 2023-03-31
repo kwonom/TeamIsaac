@@ -3977,7 +3977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 30
-  _hp: 50
+  _hp: 30
   minHp: 0
   _faceAni: {fileID: 1498872293}
   _bodyAni: {fileID: 667847580}
@@ -15033,7 +15033,7 @@ GameObject:
   - component: {fileID: 1665509226}
   - component: {fileID: 1665509225}
   - component: {fileID: 1665509224}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Horf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
