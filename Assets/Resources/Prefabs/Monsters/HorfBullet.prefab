@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8096788170915056265}
   - component: {fileID: 2535876896434277848}
   - component: {fileID: 3458709599167786077}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: HorfBullet
   m_TagString: Horf
   m_Icon: {fileID: 0}
