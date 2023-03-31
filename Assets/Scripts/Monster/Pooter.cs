@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Pooter : MonoBehaviour
 {
@@ -11,9 +8,9 @@ public class Pooter : MonoBehaviour
 
     float _speed;
     int _hp;
-    
-    bool _isLive = false;
-    
+    bool _isHitted = false;
+    bool _isDead = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,16 +52,24 @@ public class Pooter : MonoBehaviour
         switch (random)
         {
             case 1:
-                transform.position = new Vector3(-27, 16);
+                {
+                    transform.position = new Vector3(-27, 16);
+                }
                 break;
-                case 2:
-                transform.position = new Vector3(27, 16);
+            case 2:
+                {
+                    transform.position = new Vector3(27, 16);
+                }
                 break;
-                case 3:
-                transform.position = new Vector3(-27, -16);
+            case 3:
+                {
+                    transform.position = new Vector3(-27, -16);
+                }
                 break;
-                case 4:
-                transform.position = new Vector3(27, -16);
+            case 4:
+                {
+                    transform.position = new Vector3(27, -16);
+                }
                 break;
         }
 
@@ -72,7 +77,7 @@ public class Pooter : MonoBehaviour
         //transform.position = ranpos;
     }
 
-    
+
     void move()
     {
         transform.Translate((_hero.position - transform.position).normalized * Time.deltaTime * _speed);
@@ -80,20 +85,25 @@ public class Pooter : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "PlayerBullet")
+        if (collision.gameObject.name == "Player")
         {
             OnHitted(5);
+            collision.gameObject.GetComponent<Player>().Hitted(5);
         }
     }
 
     void OnHitted(int hitPower)
     {
         _hp -= hitPower;
-
-        if(_hp < 0)
+        _isHitted = true;
+        if (_hp < 0)
         {
-            Destroy(gameObject);
-            _isLive = false;
+            Dead();
         }
+    }
+
+    void Dead()
+    {
+        Destroy(this.gameObject);
     }
 }
