@@ -20,7 +20,7 @@ public class HorfBullet : MonoBehaviour
     {
         transform.Translate(_dir * Time.deltaTime * _speed);
         _lifeTimer += Time.deltaTime;
-        if(_lifeTimer > 7)
+        if(_lifeTimer > 2f)
         {
             ReMove(); 
         }

@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class Pooter : MonoBehaviour
 {
     PooterController _pCon;
     Transform _hero;
     Animator _ani;
+    SpriteRenderer _render;
 
     float _speed;
+    float _timer = 0f;
     int _hp;
     bool _isHitted = false;
     bool _isDead = false;
@@ -16,12 +19,14 @@ public class Pooter : MonoBehaviour
     void Start()
     {
         _ani = GetComponent<Animator>();
+        _render = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         move();
+        ColorChange();
     }
 
     public void Init(PooterController pCon, Transform hero)
@@ -87,8 +92,13 @@ public class Pooter : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            OnHitted(5);
             collision.gameObject.GetComponent<Player>().Hitted(5);
+        }
+        if(collision.gameObject.GetComponent<Damage>() != null)
+        {
+            int damage = collision.gameObject.GetComponent<Damage>().getDamage();
+            collision.gameObject.GetComponent<BulletRemove>().Remove();
+            OnHitted(5);
         }
     }
 
@@ -105,5 +115,20 @@ public class Pooter : MonoBehaviour
     void Dead()
     {
         Destroy(this.gameObject);
+    }
+
+    void ColorChange()
+    {
+        if(_isHitted == true)
+        {
+            _timer += Time.deltaTime;
+            _render.color = Color.red;
+            if(_timer > 0.1f)
+            {
+                _isHitted = false;
+                _render.color = Color.white;
+                _timer = 0f;
+            }
+        }
     }
 }

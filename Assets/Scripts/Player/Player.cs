@@ -381,7 +381,12 @@ public class Player : MonoBehaviour
             
            
         }
-
+        if(collision.gameObject.GetComponent<BulletDamage>() != null)
+        {
+            int damage = collision.gameObject.GetComponent<BulletDamage>().getDamage();
+            collision.gameObject.GetComponent<BulletRemove>().Remove();
+            Hitted(5);
+        }
 
 
     }

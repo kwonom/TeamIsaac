@@ -6,11 +6,12 @@ public class Horf : MonoBehaviour
 {
     [SerializeField] GameObject _horfBullet;
     [SerializeField] Transform _target;
-    [SerializeField] int _attack;
-    
+    SpriteRenderer _render;
+
     Animator _ani;
     [SerializeField] int _hp = 20;
-    bool _isLive = false;
+    bool _isHitted = false;
+    float _timer = 0f;
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Horf : MonoBehaviour
     void Awake()
     {
         _horfBullet = Resources.Load("Prefabs/Monsters/HorfBullet") as GameObject;
+        _render = GetComponent<SpriteRenderer>();
         _ani = GetComponent<Animator>();
         StartCoroutine(CoHorfFire());
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Horf"), LayerMask.NameToLayer("HorfBullet"));
@@ -29,7 +31,7 @@ public class Horf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        ColorChange();
     }
 
     IEnumerator CoHorfFire()
@@ -43,24 +45,49 @@ public class Horf : MonoBehaviour
         }
     }
 
-    void Hitted(int hitPower)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        _hp -= hitPower;
-        
-        if(_hp < 0)
+        if(collision.gameObject.name == "Player")
         {
-            _isLive = false;
-            Destroy(this.gameObject);
+            collision.gameObject.GetComponent<Player>().Hitted(5);
+        }
+        if (collision.gameObject.GetComponent<Damage>() != null)
+        {
+            int damage = collision.gameObject.GetComponent<Damage>().getDamage();
+            collision.gameObject.GetComponent<BulletRemove>().Remove();
+            OnHitted(5);
         }
     }
 
-    public int getAttack()
+    public void OnHitted(int damage)
     {
-        return _attack;
+        _hp -= damage;
+        _isHitted = true;
+        if(_hp <= 0)
+        {
+            Dead();
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void Dead()
     {
-        Debug.Log(collision);
+        Destroy(this.gameObject);
     }
+
+    public void ColorChange()
+    {
+        if (_isHitted == true)
+        {
+            _timer += Time.deltaTime;
+            _render.color = Color.red;
+            if (_timer > 0.1f)
+            {
+                _isHitted = false;
+                _render.color = Color.white;
+                _timer = 0f;
+            }
+        }
+    }
+
+    
 }
