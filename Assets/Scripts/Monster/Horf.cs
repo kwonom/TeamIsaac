@@ -55,7 +55,7 @@ public class Horf : MonoBehaviour
         {
             int damage = collision.gameObject.GetComponent<Damage>().getDamage();
             collision.gameObject.GetComponent<BulletRemove>().Remove();
-            OnHitted(5);
+            OnHitted(damage);
         }
     }
 

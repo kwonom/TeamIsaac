@@ -58,22 +58,22 @@ public class Pooter : MonoBehaviour
         {
             case 1:
                 {
-                    transform.position = new Vector3(-27, 16);
+                    transform.position = new Vector3(-24, -40);
                 }
                 break;
             case 2:
                 {
-                    transform.position = new Vector3(27, 16);
+                    transform.position = new Vector3(-24, -51);
                 }
                 break;
             case 3:
                 {
-                    transform.position = new Vector3(-27, -16);
+                    transform.position = new Vector3(-18, -33);
                 }
                 break;
             case 4:
                 {
-                    transform.position = new Vector3(27, -16);
+                    transform.position = new Vector3(27, -60);
                 }
                 break;
         }
@@ -98,7 +98,7 @@ public class Pooter : MonoBehaviour
         {
             int damage = collision.gameObject.GetComponent<Damage>().getDamage();
             collision.gameObject.GetComponent<BulletRemove>().Remove();
-            OnHitted(5);
+            OnHitted(damage);
         }
     }
 
