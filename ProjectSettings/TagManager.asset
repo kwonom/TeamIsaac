@@ -4,26 +4,27 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Boulder
+  - Face
   - wall
-  - Boom
-  - Item
-  - Damage
   - ShildItem
+  - Damage
+  - Item
+  - NotDamage
+  - Boulder
+  - Boom
   - Border
-  - Horf
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Wall
+  - Player
   - Water
   - UI
-  - Player
   - Shield
-  - Horf
-  - HorfBullet
-  - Test
+  - Wall
+  - 
+  - 
+  - 
   - 
   - 
   - 
