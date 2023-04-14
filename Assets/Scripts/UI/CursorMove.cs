@@ -15,7 +15,7 @@ public class CursorMove : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
 
-        Debug.Log("rectTransform.position :" + _cursor);
+       // Debug.Log("rectTransform.position :" + _cursor);
 
         //if ((x == 1) || (y == -1))
         //{
