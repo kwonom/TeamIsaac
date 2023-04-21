@@ -13,6 +13,7 @@ TagManager:
   - Boulder
   - Boom
   - Border
+  - Horf
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - UI
   - Shield
   - Wall
-  - Choice
-  - 
+  - Horf
+  - HorfBullet
   - 
   - 
   - 
