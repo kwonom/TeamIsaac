@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class Pooter : MonoBehaviour
 {
@@ -14,15 +13,12 @@ public class Pooter : MonoBehaviour
     bool _isHitted = false;
     bool _isDead = false;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         _ani = GetComponent<Animator>();
         _render = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         move();
@@ -36,23 +32,8 @@ public class Pooter : MonoBehaviour
         _pCon = pCon;
         _speed = 5;
         _hp = 10;
+
         int random = Random.Range(1, 4);
-        //if (random == 1)
-        //{
-        //    transform.position = new Vector3(-27, 16);
-        //}
-        //else if (random == 2)
-        //{
-        //    transform.position = new Vector3(27, 16);
-        //}
-        //else if (random == 3)
-        //{
-        //    transform.position = new Vector3(-27, -16);
-        //}
-        //else if(random == 4) 
-        //{
-        //    transform.position = new Vector3(27, -16);
-        //}
 
         switch (random)
         {
@@ -77,11 +58,7 @@ public class Pooter : MonoBehaviour
                 }
                 break;
         }
-
-        //Vector3 ranpos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f));
-        //transform.position = ranpos;
     }
-
 
     void move()
     {
@@ -94,9 +71,9 @@ public class Pooter : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().Hitted(5);
         }
-        if(collision.gameObject.GetComponent<Damage>() != null)
+        if(collision.gameObject.GetComponent<BulletDamage>() != null)
         {
-            int damage = collision.gameObject.GetComponent<Damage>().getDamage();
+            int damage = collision.gameObject.GetComponent<BulletDamage>().getDamage();
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             OnHitted(damage);
         }

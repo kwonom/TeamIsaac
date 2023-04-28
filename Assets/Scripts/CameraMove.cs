@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
@@ -7,27 +5,10 @@ public class CameraMove : MonoBehaviour
     [SerializeField] Transform _realCam;
     [SerializeField] Player _player;
 
-    public float lerpTime;
-    public float currentTime;
-    public float velo;
-    
-    public enum EMove
-    {
-        None,
-        Top,
-        Bottom,
-        Right,
-        Left,
-
-    }
 
     private void Update()
     {
-        currentTime += Time.deltaTime;
-        
-
-        Vector3 cameraPos = _realCam.position;
-
+       
         Vector3 target1 = new Vector3(0, 48f, 0);//top
 
         Vector3 target2 = new Vector3(0, -48f, 0);//bottom
@@ -36,37 +17,25 @@ public class CameraMove : MonoBehaviour
 
         Vector3 target4 = new Vector3(-72f, 0, 0);//Left
 
-        if (_player.isTouchTop)
+        if (_player.IsTouchTop)
         {
-
-             transform.position += Vector3.Lerp(_realCam.position, target1, currentTime / lerpTime);
-           
-            _player.isTouchTop = false;
-              
-           
-
+            transform.position += Vector3.Lerp(_realCam.position, target1, 1f);
+            _player.IsTouchTop = false;
         }
-        if (_player.isTouchBottom)
+        if (_player.IsTouchBottom)
         {
             transform.position += Vector3.Lerp(_realCam.position, target2, 1f);
-            _player.isTouchBottom = false;
+            _player.IsTouchBottom = false;
         }
-        if (_player.isTouchRight)
+        if (_player.IsTouchRight)
         {
             transform.position += Vector3.Lerp(_realCam.position, target3, 1f);
-            _player.isTouchRight = false;
+            _player.IsTouchRight = false;
         }
-        if (_player.isTouchLeft)
+        if (_player.IsTouchLeft)
         {
             transform.position += Vector3.Lerp(_realCam.position, target4, 1f);
-            _player.isTouchLeft = false;
+            _player.IsTouchLeft = false;
         }
-
     }
-
-
-
-   
-    
-
 }

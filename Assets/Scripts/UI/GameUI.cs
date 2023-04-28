@@ -9,11 +9,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    //public int maxHeart;
-    //public int currentHeart;
-
-    public GameObject[] heart;
-    public Text[] _text;
+     [SerializeField] GameObject[] heart;
+     [SerializeField] Text[] _text;
 
      int _coin;
      int _key;
@@ -23,12 +20,11 @@ public class GameUI : MonoBehaviour
     {
         _boom += 3;
         _text[1].text = _boom.ToString("d2");
-
-
     }
     public void HeartIcon(int life)
     {
-      
+        
+
        switch(life)
         {
             case 25:
@@ -73,13 +69,5 @@ public class GameUI : MonoBehaviour
     {
         _boom--;
         _text[1].text = _boom.ToString("d2");
-    }
-   
-
-
-    void Update()
-    {
-    
-
     }
 }

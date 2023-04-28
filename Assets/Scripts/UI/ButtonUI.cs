@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 public class ButtonUI : MonoBehaviour
 {
-    public bool clickOption = false;
+    protected bool clickOption = false;
+    public bool ClickOption { get { return clickOption; }set { clickOption = value; } }
 
     public void OnBtnFirstClick()//newrun
     {
@@ -23,7 +18,5 @@ public class ButtonUI : MonoBehaviour
         Debug.Log("옵션이동");
         clickOption = true;
     }
-
-
-    }
+}
 

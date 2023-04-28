@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Horf : MonoBehaviour
@@ -12,14 +11,6 @@ public class Horf : MonoBehaviour
     [SerializeField] int _hp = 20;
     bool _isHitted = false;
     float _timer = 0f;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        Application.targetFrameRate = 30;
-
-    }
-
     void Awake()
     {
         _horfBullet = Resources.Load("Prefabs/Monsters/HorfBullet") as GameObject;
@@ -28,7 +19,12 @@ public class Horf : MonoBehaviour
         StartCoroutine(CoHorfFire());
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Horf"), LayerMask.NameToLayer("HorfBullet"));
     }
-    // Update is called once per frame
+    
+    void Start()
+    {
+        Application.targetFrameRate = 30;
+    }
+
     void Update()
     {
         ColorChange();
@@ -51,9 +47,9 @@ public class Horf : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().Hitted(5);
         }
-        if (collision.gameObject.GetComponent<Damage>() != null)
+        if (collision.gameObject.GetComponent<BulletDamage>() != null)
         {
-            int damage = collision.gameObject.GetComponent<Damage>().getDamage();
+            int damage = collision.gameObject.GetComponent<BulletDamage>().getDamage();
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             OnHitted(damage);
         }
@@ -88,6 +84,4 @@ public class Horf : MonoBehaviour
             }
         }
     }
-
-    
 }

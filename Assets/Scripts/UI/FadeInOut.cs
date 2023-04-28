@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -32,7 +30,6 @@ public class FadeInOut : MonoBehaviour
         }
         SceneManager.LoadScene("Loading");//fadeout >>loadingScence 이동
         Debug.Log("새게임");
-
         yield return null;
     }
 }
