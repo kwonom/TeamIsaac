@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Threading;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,12 +15,12 @@ public class GameUI : MonoBehaviour
     {
         _boom += 3;
         _text[1].text = _boom.ToString("d2");
+        
     }
+   
     public void HeartIcon(int life)
     {
-        
-
-       switch(life)
+        switch (life)
         {
             case 25:
                 heart[0].SetActive(false);

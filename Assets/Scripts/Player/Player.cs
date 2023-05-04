@@ -182,10 +182,10 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            AttackisIdle = true;
-        }
+        //if (Input.GetKeyUp(KeyCode.RightArrow))
+        //{
+        //    AttackisIdle = true;
+        //}
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             AttackisIdle = false;
@@ -196,10 +196,10 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            // AttackisIdle = true;
-        }
+        //if (Input.GetKeyUp(KeyCode.LeftArrow))
+        //{
+        //    // AttackisIdle = true;
+        //}
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -211,15 +211,16 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            //  AttackisIdle = true;
-        }
+        //if (Input.GetKeyUp(KeyCode.UpArrow))
+        //{
+        //    //  AttackisIdle = true;
+        //}
         if (Input.GetKey(KeyCode.DownArrow))
         {
+            AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
-                GameObject Bullet = Instantiate(tear, transform.position + Vector3.down, transform.rotation);
+                GameObject Bullet = Instantiate(tear, transform.position + Vector3.down*3.0f, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.down);
                 curShotDelay = 0;
             }

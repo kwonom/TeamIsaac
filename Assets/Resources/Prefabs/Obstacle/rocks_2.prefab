@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7435925757238241749}
   m_Layer: 0
   m_Name: rocks_2
-  m_TagString: Boulder
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

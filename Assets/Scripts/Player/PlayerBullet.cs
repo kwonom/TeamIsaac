@@ -11,9 +11,9 @@ public class PlayerBullet : MonoBehaviour
         _rigid.AddForce(dir * _bulletSpeed, ForceMode2D.Impulse);  //AddForce(Vec): Vec의 방향과 크기로 힘을 줌
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("wall")||collision.gameObject.CompareTag("Boulder"))
+        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Damage"))
         {
             Destroy(gameObject);
         }
