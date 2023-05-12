@@ -90,8 +90,7 @@ public class Player : MonoBehaviour
         boom--;
         _gameUI.minusBoom();
         GameObject _boom = Instantiate(boomEffect, transform.position, transform.rotation);
-        _boom.GetComponent<Boom>().boomEffect(5);
-
+        _boom.GetComponent<Boom>().getDamage();
     }
 
     public void Hitted(int dmg)
@@ -110,8 +109,10 @@ public class Player : MonoBehaviour
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Hitted");
             Invoke("ReturnFace", 0.6f);
-            _gameUI.HeartIcon(dmg);
+            _gameUI.HeartIcon(_hp);
         }
+
+        
     }
     void GetItem()
     {
@@ -196,14 +197,9 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        //if (Input.GetKeyUp(KeyCode.LeftArrow))
-        //{
-        //    // AttackisIdle = true;
-        //}
-
+       
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            //AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.up * 3.0f, transform.rotation);
@@ -211,10 +207,7 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        //if (Input.GetKeyUp(KeyCode.UpArrow))
-        //{
-        //    //  AttackisIdle = true;
-        //}
+      
         if (Input.GetKey(KeyCode.DownArrow))
         {
             AttackisIdle = false;
@@ -253,7 +246,7 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Damage")  || collision.gameObject.CompareTag("Boom"))
+        else if (collision.gameObject.CompareTag("Damage"))
         {
             Hitted(5);
             _gameUI.HeartIcon(_hp);
@@ -262,7 +255,8 @@ public class Player : MonoBehaviour
         {
             int damage = collision.gameObject.GetComponent<BulletDamage>().getDamage();
             collision.gameObject.GetComponent<BulletRemove>().Remove();
-            Hitted(5);
+            Hitted(damage);
+            _gameUI.HeartIcon(_hp);
         }
     }
 
@@ -285,6 +279,12 @@ public class Player : MonoBehaviour
                     isTouchLeft = true;
                     break;
             }
+        }
+        else if (collision.gameObject.CompareTag("Boom"))
+        {
+
+            Hitted(5);
+            _gameUI.HeartIcon(_hp);
         }
     }
 
