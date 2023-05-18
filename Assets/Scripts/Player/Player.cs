@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
-    [SerializeField] float _speed;
     [SerializeField] Animator _faceAni;
     [SerializeField] Animator _bodyAni;
     [SerializeField] Animator _FullAni;
     [SerializeField] GameObject ShildItem;
+    [SerializeField] float _speed;
 
     [SerializeField] GameUI _gameUI;
     [SerializeField] CameraMove _cameraMove;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
         boom--;
         _gameUI.minusBoom();
         GameObject _boom = Instantiate(boomEffect, transform.position, transform.rotation);
-        _boom.GetComponent<Boom>().getDamage();
+        //_boom.GetComponent<Boom>().getDamage();
     }
 
     public void Hitted(int dmg)
@@ -183,10 +183,7 @@ public class Player : MonoBehaviour
                 curShotDelay = 0;
             }
         }
-        //if (Input.GetKeyUp(KeyCode.RightArrow))
-        //{
-        //    AttackisIdle = true;
-        //}
+       
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             AttackisIdle = false;
@@ -230,7 +227,6 @@ public class Player : MonoBehaviour
             {
                 case "Coin":
                     _gameUI.addCoin();
-
                     break;
                 case "Bomb":
                     boom++;
@@ -238,7 +234,6 @@ public class Player : MonoBehaviour
                     break;
                 case "Key":
                     _gameUI.addKey();
-
                     break;
                 case "Shild":
                     GetItem();
@@ -257,6 +252,10 @@ public class Player : MonoBehaviour
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             Hitted(damage);
             _gameUI.HeartIcon(_hp);
+        }
+        if (collision.gameObject.CompareTag("BossRoom"))
+        {
+            SceneManager.LoadScene("BossIntro");
         }
     }
 

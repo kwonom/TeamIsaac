@@ -1,23 +1,35 @@
-using System.Globalization;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-     [SerializeField] GameObject[] heart;
-     [SerializeField] Text[] _text;
+    [SerializeField] GameObject[] heart;
+    [SerializeField] Text[] _text;
+    [SerializeField] Text _TimerText;
+
+    Animator _ani;
 
      int _coin;
      int _key;
      int _boom;
-
+    float _currentTime;
     private void Start()
     {
         _boom += 3;
         _text[1].text = _boom.ToString("d2");
+        _currentTime= 0;
         
     }
-   
+    private void Update()
+    {
+        _currentTime =_currentTime+ Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds( _currentTime );
+        _TimerText.text = time.ToString(@"hh\:mm\:ss");
+
+        OnTimer();
+    }
+
     public void HeartIcon(int life)
     {
         switch (life)
@@ -65,4 +77,17 @@ public class GameUI : MonoBehaviour
         _boom--;
         _text[1].text = _boom.ToString("d2");
     }
+    public void OnTimer()
+    {
+        Animator _ani =_TimerText.GetComponent<Animator>();
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _ani.SetBool("OnTimer",true);
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            _ani.SetBool("OnTimer", false);
+        }
+    }
+
 }

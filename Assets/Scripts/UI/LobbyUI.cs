@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] float _speed;
+    [SerializeField] AudioClip _clip;
     [SerializeField] ButtonUI _button;
      RectTransform _rectTransform;
    
@@ -18,6 +18,7 @@ public class LobbyUI : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
+                SoundController.instance.SFXPlay( _clip);
                 y = 1080f;
                 StartCoroutine(CoMoveToNext(y));
             }
@@ -26,20 +27,25 @@ public class LobbyUI : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                SoundController.instance.SFXPlay( _clip);
                 y = 0f;
                 StartCoroutine(CoMoveToforward(y));
+
             }
             else if (_button.ClickOption == true)
             {
+                SoundController.instance.SFXPlay(_clip);
                 y = 2160f;
                 StartCoroutine(CoMoveToNext(y));
                 _button.ClickOption = false;
+
             }
         }
         if(_rectTransform.anchoredPosition.y == 2160)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                SoundController.instance.SFXPlay(_clip);
                 y = 1080f;
                 StartCoroutine(CoMoveToforward(y));
             }
