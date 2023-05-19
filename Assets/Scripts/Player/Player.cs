@@ -23,12 +23,13 @@ public class Player : MonoBehaviour
     [SerializeField]int _hp;
     [SerializeField] int minHp;
     [SerializeField] int _dis;
-    [SerializeField] int boom; //ÇöÀç ÆøÅº °³¼ö
+    [SerializeField] int boom; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
     [SerializeField]GameObject boomEffect;
 
     bool isIdle = true;
     bool AttackisIdle = true;
-    bool isDead;
+    protected bool isDead;
+    public bool IsDead{get{return isDead;}set{isDead=value;}}
 
     protected bool isTouchTop;
     public bool IsTouchTop { get { return isTouchTop; } set { isTouchTop = value; } }
@@ -116,7 +117,7 @@ public class Player : MonoBehaviour
     }
     void GetItem()
     {
-        Debug.Log("¾ÆÀÌÅÛ È¹µæ");
+        Debug.Log("ì•„ì´í…œ íšë“!");
         Face.SetActive(false);
         FullAni.SetActive(true);
         _FullAni.SetTrigger("GetItem");

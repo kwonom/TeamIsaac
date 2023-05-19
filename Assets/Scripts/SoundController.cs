@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +54,14 @@ public class SoundController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+
+        if (_bgms[3] == true)
+        {
+            _bgmPlayer.loop = false;
+        }
+    }
     void OnsceneLoaded(Scene _scene, LoadSceneMode _scene1)
     {
         for(int i=0;i<_bgms.Length;i++)
@@ -63,19 +72,20 @@ public class SoundController : MonoBehaviour
                 BgSoundPlay(_bgms[i]);
                
             }
+            
         }
     }
     public void SFXPlay(AudioClip _clip)
     {
         _sfxPlayer.clip = _clip;
-        _sfxPlayer.spatialBlend = 1f;
+        //_sfxPlayer.spatialBlend = 1f;
         _sfxPlayer.volume = 1f;
         _sfxPlayer.mute = false;
         _sfxPlayer.Play();
     }
     public void BgSoundPlay(AudioClip _clip)
     {
-        
+       
         _bgmPlayer.clip= _clip;
         _bgmPlayer.loop = true;
         _bgmPlayer.volume =1f;

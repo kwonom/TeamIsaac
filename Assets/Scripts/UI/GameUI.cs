@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -7,8 +8,10 @@ public class GameUI : MonoBehaviour
     [SerializeField] GameObject[] heart;
     [SerializeField] Text[] _text;
     [SerializeField] Text _TimerText;
+    [SerializeField] GameObject _GameOver;
+    [SerializeField] GameObject _OpenOption;
+    [SerializeField] Player _player;
 
-    Animator _ani;
 
      int _coin;
      int _key;
@@ -28,6 +31,7 @@ public class GameUI : MonoBehaviour
         _TimerText.text = time.ToString(@"hh\:mm\:ss");
 
         OnTimer();
+        GameOver();
     }
 
     public void HeartIcon(int life)
@@ -90,4 +94,32 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    void GameOver()
+    {
+        if(_player.IsDead == true)
+        {
+            Invoke("Option", 3.5f);
+        }
+    }
+
+    void Option()
+    {
+        _GameOver.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void OnBtnEXIT()
+    {
+        SceneManager.LoadScene("Lobby");
+        Time.timeScale = 1;
+    }
+    public void OnBtnRESTART()
+    {
+        SceneManager.LoadScene("Main");
+        Time.timeScale = 1f;
+    }
+
+    void OpenOption()
+    {
+        _OpenOption.SetActive(true);
+    }
 }
