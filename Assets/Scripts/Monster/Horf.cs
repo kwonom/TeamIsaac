@@ -5,6 +5,7 @@ public class Horf : MonoBehaviour
 {
     [SerializeField] GameObject _horfBullet;
     [SerializeField] Transform _target;
+    [SerializeField] GameObject[] _items;
     SpriteRenderer _render;
 
     Animator _ani;
@@ -53,6 +54,7 @@ public class Horf : MonoBehaviour
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             OnHitted(damage);
         }
+       
     }
 
     public void OnHitted(int damage)
@@ -68,6 +70,29 @@ public class Horf : MonoBehaviour
     void Dead()
     {
         Destroy(this.gameObject);
+        int ran = Random.Range(0, 10);
+        Debug.Log(ran + " is ran");
+        if (ran < 5)
+        {
+            GameObject temp = Instantiate(_items[2]);//key
+            temp.transform.position = transform.position;
+        }
+        else if(ran < 5)
+        {
+            GameObject temp = Instantiate(_items[0]);//boom
+            temp.transform.position = transform.position;
+
+        }
+        else if(ran < 4)
+        {
+            GameObject temp = Instantiate(_items[1]);//coin
+            temp.transform.position = transform.position;
+
+        }
+        else if(ran < 4)
+        {
+            Debug.Log("Not Item");
+        }
     }
 
     public void ColorChange()

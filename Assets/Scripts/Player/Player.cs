@@ -1,21 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] Animator _faceAni;
     [SerializeField] Animator _bodyAni;
     [SerializeField] Animator _FullAni;
-    [SerializeField] GameObject ShildItem;
     [SerializeField] float _speed;
 
     [SerializeField] GameUI _gameUI;
     [SerializeField] CameraMove _cameraMove;
 
     [SerializeField] GameObject tear;
-    [SerializeField] GameObject Shild;
     [SerializeField] GameObject Face;
     [SerializeField] GameObject FullAni;
+    [SerializeField] GameObject door;
+    [SerializeField] GameObject ShildItem;
 
     [SerializeField] float maxShotDelay;
     [SerializeField] float curShotDelay;
@@ -23,11 +24,13 @@ public class Player : MonoBehaviour
     [SerializeField]int _hp;
     [SerializeField] int minHp;
     [SerializeField] int _dis;
-    [SerializeField] int boom; //���� ��ź ����
+    [SerializeField] int boom; 
     [SerializeField]GameObject boomEffect;
 
     bool isIdle = true;
     bool AttackisIdle = true;
+    protected bool getShield;
+    public bool GetShield { get { return getShield; }set { getShield = value; } }
     protected bool isDead;
     public bool IsDead{get{return isDead;}set{isDead=value;}}
 
@@ -42,12 +45,7 @@ public class Player : MonoBehaviour
     
     protected bool isTouchLeft;
     public bool IsTouchLeft { get { return isTouchLeft; } set { isTouchLeft = value; } }
-
-    void Start()
-    {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
-    }
-
+  
     void Update()
     {
         curShotDelay += Time.deltaTime;
@@ -91,7 +89,7 @@ public class Player : MonoBehaviour
         boom--;
         _gameUI.minusBoom();
         GameObject _boom = Instantiate(boomEffect, transform.position, transform.rotation);
-        //_boom.GetComponent<Boom>().getDamage();
+        _boom.GetComponent<Boom>().boomEffect(10);
     }
 
     public void Hitted(int dmg)
@@ -117,12 +115,15 @@ public class Player : MonoBehaviour
     }
     void GetItem()
     {
+        getShield = true;
         Debug.Log("아이템 획득!");
         Face.SetActive(false);
         FullAni.SetActive(true);
         _FullAni.SetTrigger("GetItem");
         Invoke("ReturnFace", 1f);
         GameObject Temp = Instantiate(ShildItem, transform);
+
+
     }
 
     void ReturnFace()
@@ -242,7 +243,7 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Damage"))
+        if (collision.gameObject.CompareTag("Damage") && GetComponentsInChildren<Shild>() == null)
         {
             Hitted(5);
             _gameUI.HeartIcon(_hp);
@@ -258,6 +259,15 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("BossIntro");
         }
+        if (collision.gameObject.CompareTag("Rock"))
+        {
+           if(_gameUI._key>0)
+            {
+                TilemapCollider2D tile =door.GetComponent<TilemapCollider2D>();
+                tile.enabled = false;
+            }
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -280,7 +290,9 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        else if (collision.gameObject.CompareTag("Boom"))
+       
+      
+        if (collision.gameObject.CompareTag("Boom"))
         {
 
             Hitted(5);

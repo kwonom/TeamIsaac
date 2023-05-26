@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pooter : MonoBehaviour
@@ -6,6 +7,8 @@ public class Pooter : MonoBehaviour
     Transform _hero;
     Animator _ani;
     SpriteRenderer _render;
+    [SerializeField] GameObject[] _items;
+
 
     float _speed;
     float _timer = 0f;
@@ -77,6 +80,7 @@ public class Pooter : MonoBehaviour
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             OnHitted(damage);
         }
+        
     }
 
     void OnHitted(int hitPower)
@@ -92,6 +96,29 @@ public class Pooter : MonoBehaviour
     void Dead()
     {
         Destroy(this.gameObject);
+        int ran = Random.Range(0, 10);
+        Debug.Log(ran + " is ran");
+        if (ran < 5)
+        {
+            GameObject temp = Instantiate(_items[2]);//key
+            temp.transform.position = transform.position;
+        }
+        else if (ran < 5)
+        {
+            GameObject temp = Instantiate(_items[0]);//boom
+            temp.transform.position = transform.position;
+
+        }
+        else if (ran < 4)
+        {
+            GameObject temp = Instantiate(_items[1]);//coin
+            temp.transform.position = transform.position;
+
+        }
+        else if (ran < 4)
+        {
+            Debug.Log("Not Item");
+        }
     }
 
     void ColorChange()

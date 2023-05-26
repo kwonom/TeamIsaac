@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9065675311355661792}
   - component: {fileID: 9065675311355661793}
   - component: {fileID: 4176766925391634420}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Item Coin
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9065675311355661804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.472634, y: 10.8156395, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

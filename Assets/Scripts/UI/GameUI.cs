@@ -14,13 +14,13 @@ public class GameUI : MonoBehaviour
 
 
      int _coin;
-     int _key;
+     public int _key;
      int _boom;
     float _currentTime;
     private void Start()
     {
         _boom += 3;
-        _text[1].text = _boom.ToString("d2");
+        _text[1].text = _boom.ToString("d2");//두자리 정수 표시
         _currentTime= 0;
         
     }
@@ -38,19 +38,19 @@ public class GameUI : MonoBehaviour
     {
         switch (life)
         {
-            case 25:
+            case 75:
                 heart[0].SetActive(false);
                 break;
-            case 20:
+            case 60:
                 heart[1].SetActive(false);
                 break;
-            case 15:
+            case 45:
                 heart[2].SetActive(false);
                 break;
-            case 10:
+            case 30:
                 heart[3].SetActive(false);
                 break;
-            case 5:
+            case 15:
                 heart[4].SetActive(false);
                 break;
             case 0:
@@ -73,7 +73,8 @@ public class GameUI : MonoBehaviour
     public void addKey()
     {
         _key++;
-        _text[2].text = _key.ToString("d2");//d2 소수점 위로  / f2 소수점 아래로 
+        _text[2].text = _key.ToString("d2");//d2 소수점 위로  / f2 소수점 아래로
+                                            
     }
 
     public void minusBoom()

@@ -9,6 +9,8 @@ public class PlayerBullet : MonoBehaviour
     {
         Rigidbody2D _rigid = GetComponent<Rigidbody2D>();
         _rigid.AddForce(dir * _bulletSpeed, ForceMode2D.Impulse);  //AddForce(Vec): Vec의 방향과 크기로 힘을 줌
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("HorfBullet"), LayerMask.NameToLayer("PlayerBullet"));
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

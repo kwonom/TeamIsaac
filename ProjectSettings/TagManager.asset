@@ -15,6 +15,7 @@ TagManager:
   - Border
   - Horf
   - BossRoom
+  - Rock
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Wall
   - Horf
   - HorfBullet
-  - 
+  - PlayerBullet
   - 
   - 
   - 

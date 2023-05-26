@@ -1,35 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shild : MonoBehaviour
 {
     [SerializeField] Transform _player;
+    [SerializeField] int _dmg;
     float _time = 0f;
-    int _hp;
-    // Start is called before the first frame update
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerBullet"), LayerMask.NameToLayer("Shield"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Wall"), LayerMask.NameToLayer("Shield"));
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-        ShildItem();
+       
+            ShildItem();
+        
     }    
     public void ShildItem()
     {        
-        _time += Time.deltaTime;
-        transform.localPosition = new Vector3(Mathf.Cos(_time), Mathf.Sin(_time), 0) * 1.5f;
+        _time += Time.deltaTime*2;
+        transform.localPosition = new Vector3(Mathf.Cos(_time), Mathf.Sin(_time), 0) * 2.5f;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public int getDamage()
     {
-        if (collision.gameObject.tag == "Monster")
-        {
-            _hp -= 10;
-        }
+        return _dmg;
     }
+
+
 }
