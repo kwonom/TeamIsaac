@@ -16,22 +16,43 @@ public class GameUI : MonoBehaviour
      int _coin;
      public int _key;
      int _boom;
-    float _currentTime;
+    float _currentTime = 0;
     private void Start()
     {
         _boom += 3;
         _text[1].text = _boom.ToString("d2");//두자리 정수 표시
-        _currentTime= 0;
+        
         
     }
     private void Update()
     {
-        _currentTime =_currentTime+ Time.deltaTime;
-        TimeSpan time = TimeSpan.FromSeconds( _currentTime );
+        _currentTime = _currentTime + Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(_currentTime);
         _TimerText.text = time.ToString(@"hh\:mm\:ss");
 
         OnTimer();
         GameOver();
+    }
+    public void BossRoomInit()
+    {
+        int hp = 0;
+        int coin2 = 0;
+        int boom2 = 0;
+        int key2 = 0;
+        bool shieldBool = false;
+        float currentTime2 = 0;
+        SoundController.instance.getBossSceneData(ref hp, ref coin2, ref boom2, ref key2, ref shieldBool,ref currentTime2);
+        Debug.Log(hp + ", " + key2 + ", " + coin2 + ", " + boom2 + ", " + shieldBool+", "+currentTime2);
+        _coin = coin2;
+        _boom= boom2;
+        _key = key2;
+        _currentTime= currentTime2;
+
+        _text[0].text = coin2.ToString();
+        _text[1].text = boom2.ToString();
+        _text[2].text = key2.ToString();
+        _TimerText.text = currentTime2.ToString(@"hh\:mm\:ss");
+
     }
 
     public void HeartIcon(int life)
@@ -59,6 +80,19 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    public int getCoin()
+    {
+        return _coin;
+    }
+
+    public int getKey()
+    {
+        return _key;
+    }
+    public float getTime()
+    {
+        return _currentTime;
+    }
    
     public void addCoin()
     {
@@ -85,6 +119,8 @@ public class GameUI : MonoBehaviour
     public void OnTimer()
     {
         Animator _ani =_TimerText.GetComponent<Animator>();
+       
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _ani.SetBool("OnTimer",true);
@@ -93,6 +129,7 @@ public class GameUI : MonoBehaviour
         {
             _ani.SetBool("OnTimer", false);
         }
+
     }
 
     void GameOver()

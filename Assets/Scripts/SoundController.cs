@@ -21,8 +21,33 @@ public class SoundController : MonoBehaviour
     [SerializeField] Toggle _bgmMute;
 
     public static SoundController instance;
+    float _currentTime = 0;
+    int _hp = 0;
+    int _coin = 0;
+    int _bomb = 0;
+    int _key = 0;
+    bool _shield = false;
 
-   
+    public void setBossSceneData(int hp, int coin, int bomb, int key, bool shield,float currentTime)
+    {
+        _hp = hp;
+        _coin = coin;
+        _bomb = bomb;
+        _key = key;
+        _shield = shield;
+        _currentTime = currentTime;
+    }
+
+    public void getBossSceneData(ref int hp, ref int coin, ref int bomb, ref int key, ref bool shield,ref float currentTime)
+    {
+        hp = _hp;
+        coin = _coin;
+        bomb = _bomb;
+        key = _key;
+        shield = _shield;
+        currentTime = _currentTime;
+    }
+
     public void OnBgmVolumeChange()
     {
         _bgmPlayer.volume = _bgmSlider.value;

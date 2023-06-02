@@ -1079,7 +1079,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.75, y: 2.0625}
+  m_Size: {x: 1.75, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -1116,10 +1116,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.75, y: 2}
+    newSize: {x: 1.75, y: 2}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -1844,7 +1844,7 @@ GameObject:
   - component: {fileID: 284826658}
   - component: {fileID: 284826662}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4109,7 +4109,7 @@ MonoBehaviour:
   _hp: 90
   minHp: 0
   _dis: 100
-  boom: 3
+  boom: 100
   boomEffect: {fileID: 3424655767461140972, guid: fe825a951940bb14c8cf1f7d0082aa79, type: 3}
 --- !u!212 &476412436
 SpriteRenderer:

@@ -1,3 +1,4 @@
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -76,6 +77,23 @@ public class Player : MonoBehaviour
         {
             transform.position += Vector3.Lerp(curPos, target4, 1f);
         }
+        
+        FullAni.transform.localPosition = Vector3.zero;
+    }
+    public void BossRoomInit()
+    {
+        int hp = 0;
+        int coin2 = 0;
+        int boom2 = 0;
+        int key2 = 0;
+        bool shieldBool = false;
+        float currentTime2 = 0;
+        SoundController.instance.getBossSceneData(ref hp, ref coin2, ref boom2, ref key2, ref shieldBool, ref currentTime2);
+        Debug.Log(hp + ", " + key2 + ", " + coin2 + ", " + boom2 + ", " + shieldBool + ", " + currentTime2);
+
+        _hp= hp;
+        if (shieldBool) GetItem();
+        boom = boom2;
     }
 
     void Boom()
@@ -89,7 +107,7 @@ public class Player : MonoBehaviour
         boom--;
         _gameUI.minusBoom();
         GameObject _boom = Instantiate(boomEffect, transform.position, transform.rotation);
-        _boom.GetComponent<Boom>().boomEffect(10);
+        _boom.GetComponent<Boom>().boomEffect();
     }
 
     public void Hitted(int dmg)
@@ -257,6 +275,17 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("BossRoom"))
         {
+            int coin = _gameUI.getCoin();
+            int key = _gameUI.getKey();
+            float time = _gameUI.getTime();
+            SoundController.instance.setBossSceneData(_hp, coin, boom, key, getShield,time);
+            //int hp = 0;
+            //int coin2 = 0;
+            //int boom2 = 0;
+            //int key2 = 0;
+            //bool shieldBool = false;
+            //SoundController.instance.getBossSceneData(ref hp, ref coin2, ref boom2,ref key2,ref shieldBool);
+            //Debug.Log(hp+", "+key2+ ", " +coin2+ ", " +boom2+ ", " +shieldBool);
             SceneManager.LoadScene("BossIntro");
         }
         if (collision.gameObject.CompareTag("Rock"))
