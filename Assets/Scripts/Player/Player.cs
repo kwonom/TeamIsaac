@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     [SerializeField] int boom; 
     [SerializeField]GameObject boomEffect;
 
+    [SerializeField] GameObject[] _door;
+    [SerializeField] PooterController _pooterCon;
+    [SerializeField] GameObject _horfs;
     bool isIdle = true;
     bool AttackisIdle = true;
     protected bool getShield;
@@ -46,13 +49,15 @@ public class Player : MonoBehaviour
     
     protected bool isTouchLeft;
     public bool IsTouchLeft { get { return isTouchLeft; } set { isTouchLeft = value; } }
-  
+
+
     void Update()
     {
         curShotDelay += Time.deltaTime;
         Move();
         Attack();
         Boom();
+        OpenDoor();
 
         Vector3 curPos = transform.position;
         Vector3 target1 = new Vector3(0, 25f, 0);//top
@@ -65,21 +70,44 @@ public class Player : MonoBehaviour
         {
             transform.position += Vector3.Lerp(curPos, target1, 1f);
         }
-        if (isTouchBottom && Vector3.Distance(curPos, target2) < _dis)
+        if (isTouchBottom && Vector3.Distance(curPos, target2) < _dis)//pooter
         {
             transform.position += Vector3.Lerp(curPos, target2, 1f);
+
         }
         if (isTouchRight && Vector3.Distance(curPos, target3) < _dis)
         {
             transform.position += Vector3.Lerp(curPos, target3, 1f);
         }
-        if (isTouchLeft && Vector3.Distance(curPos, target4) < _dis)
+        if (isTouchLeft && Vector3.Distance(curPos, target4) < _dis)//horf
         {
             transform.position += Vector3.Lerp(curPos, target4, 1f);
+
         }
         
         FullAni.transform.localPosition = Vector3.zero;
+
+       
     }
+
+    void OpenDoor()
+    {
+        Pooter[] pooters = _pooterCon.transform.GetComponentsInChildren<Pooter>();
+        Horf[] horfs = _horfs.transform.GetComponentsInChildren<Horf>();
+        if(pooters.Length == 0)
+        {
+            _door[0].SetActive(false);
+        }
+        if (horfs.Length==0) //왼쪽문
+        {
+
+            _door[1].SetActive(false);
+        }
+
+    }
+
+
+
     public void BossRoomInit()
     {
         int hp = 0;
@@ -90,8 +118,8 @@ public class Player : MonoBehaviour
         float currentTime2 = 0;
         SoundController.instance.getBossSceneData(ref hp, ref coin2, ref boom2, ref key2, ref shieldBool, ref currentTime2);
         Debug.Log(hp + ", " + key2 + ", " + coin2 + ", " + boom2 + ", " + shieldBool + ", " + currentTime2);
-
         _hp= hp;
+        _gameUI.HeartIcon(_hp);
         if (shieldBool) GetItem();
         boom = boom2;
     }
@@ -261,7 +289,7 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("Damage") && GetComponentsInChildren<Shild>() == null)
+        if (collision.gameObject.CompareTag("Damage")&& GetComponentsInChildren<Shild>() == null)
         {
             Hitted(5);
             _gameUI.HeartIcon(_hp);
@@ -279,6 +307,7 @@ public class Player : MonoBehaviour
             int key = _gameUI.getKey();
             float time = _gameUI.getTime();
             SoundController.instance.setBossSceneData(_hp, coin, boom, key, getShield,time);
+            SceneManager.LoadScene("BossIntro");
             //int hp = 0;
             //int coin2 = 0;
             //int boom2 = 0;
@@ -286,7 +315,6 @@ public class Player : MonoBehaviour
             //bool shieldBool = false;
             //SoundController.instance.getBossSceneData(ref hp, ref coin2, ref boom2,ref key2,ref shieldBool);
             //Debug.Log(hp+", "+key2+ ", " +coin2+ ", " +boom2+ ", " +shieldBool);
-            SceneManager.LoadScene("BossIntro");
         }
         if (collision.gameObject.CompareTag("Rock"))
         {
@@ -296,7 +324,7 @@ public class Player : MonoBehaviour
                 tile.enabled = false;
             }
         }
-
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

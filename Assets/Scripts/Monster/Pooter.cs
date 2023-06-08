@@ -100,24 +100,25 @@ public class Pooter : MonoBehaviour
         Debug.Log(ran + " is ran");
         if (ran < 5)
         {
+            Debug.Log("Not Item");
+
+        }
+        else if (ran < 7)
+        {
             GameObject temp = Instantiate(_items[2]);//key
             temp.transform.position = transform.position;
         }
-        else if (ran < 5)
+        else if (ran < 8)
         {
             GameObject temp = Instantiate(_items[0]);//boom
             temp.transform.position = transform.position;
 
         }
-        else if (ran < 4)
+        else if (ran < 9)
         {
             GameObject temp = Instantiate(_items[1]);//coin
             temp.transform.position = transform.position;
 
-        }
-        else if (ran < 4)
-        {
-            Debug.Log("Not Item");
         }
     }
 

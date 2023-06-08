@@ -15,7 +15,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Damage"))
+        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Damage") || collision.gameObject.CompareTag("LockedDoor"))
         {
             Destroy(gameObject);
         }

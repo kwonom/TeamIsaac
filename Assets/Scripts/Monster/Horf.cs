@@ -12,6 +12,7 @@ public class Horf : MonoBehaviour
     [SerializeField] int _hp = 20;
     bool _isHitted = false;
     float _timer = 0f;
+    bool isDead { get; set; }
     void Awake()
     {
         _horfBullet = Resources.Load("Prefabs/Monsters/HorfBullet") as GameObject;
@@ -69,29 +70,31 @@ public class Horf : MonoBehaviour
 
     void Dead()
     {
+        isDead = true;
         Destroy(this.gameObject);
         int ran = Random.Range(0, 10);
         Debug.Log(ran + " is ran");
-        if (ran < 5)
+        if (ran < 5)//20%
         {
+            Debug.Log("Not Item");
+        }
+        else if(ran < 7)//20%
+        {
+           
             GameObject temp = Instantiate(_items[2]);//key
             temp.transform.position = transform.position;
         }
-        else if(ran < 5)
+        else if(ran < 8)//20%
         {
             GameObject temp = Instantiate(_items[0]);//boom
             temp.transform.position = transform.position;
 
         }
-        else if(ran < 4)
+        else if(ran < 9)//10%
         {
             GameObject temp = Instantiate(_items[1]);//coin
             temp.transform.position = transform.position;
 
-        }
-        else if(ran < 4)
-        {
-            Debug.Log("Not Item");
         }
     }
 

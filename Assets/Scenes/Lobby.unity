@@ -3811,5 +3811,17 @@ PrefabInstance:
       propertyPath: _bgmSlider
       value: 
       objectReference: {fileID: 1091961181}
+    - target: {fileID: 4856728663584070423, guid: acd52048f5291f9408ffeac713100562, type: 3}
+      propertyPath: _bgms.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856728663584070423, guid: acd52048f5291f9408ffeac713100562, type: 3}
+      propertyPath: _bgms.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1fa9af4a6a2658240853e8676875cd2e, type: 3}
+    - target: {fileID: 4856728663813883629, guid: acd52048f5291f9408ffeac713100562, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e6165fbf6f6039f4888582ab0241faf6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acd52048f5291f9408ffeac713100562, type: 3}

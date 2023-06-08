@@ -13,6 +13,7 @@ public class PooterController : MonoBehaviour
         makePooter();
     }
 
+   
     void makePooter()
     {
         for (int i = 0; i < 4; i++)
@@ -25,5 +26,6 @@ public class PooterController : MonoBehaviour
             ptr.Init(this, _hero);
         }
     }
+
 }
 

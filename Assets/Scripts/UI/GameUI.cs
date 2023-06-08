@@ -48,9 +48,9 @@ public class GameUI : MonoBehaviour
         _key = key2;
         _currentTime= currentTime2;
 
-        _text[0].text = coin2.ToString();
-        _text[1].text = boom2.ToString();
-        _text[2].text = key2.ToString();
+        _text[0].text = coin2.ToString("d2");
+        _text[1].text = boom2.ToString("d2");
+        _text[2].text = key2.ToString("d2");
         _TimerText.text = currentTime2.ToString(@"hh\:mm\:ss");
 
     }
@@ -155,6 +155,7 @@ public class GameUI : MonoBehaviour
         SceneManager.LoadScene("Main");
         Time.timeScale = 1f;
     }
+    
 
     void OpenOption()
     {
