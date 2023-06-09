@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxShotDelay;
     [SerializeField] float curShotDelay;
 
-    [SerializeField]int _hp;
+    public int _hp;
     [SerializeField] int minHp;
     [SerializeField] int _dis;
     [SerializeField] int boom; 
@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject[] _door;
     [SerializeField] PooterController _pooterCon;
     [SerializeField] GameObject _horfs;
+   // [SerializeField] AudioClip[] _sfx;
+
     bool isIdle = true;
     bool AttackisIdle = true;
     protected bool getShield;
@@ -50,6 +52,10 @@ public class Player : MonoBehaviour
     protected bool isTouchLeft;
     public bool IsTouchLeft { get { return isTouchLeft; } set { isTouchLeft = value; } }
 
+    private void Start()
+    {
+        
+    }
 
     void Update()
     {
@@ -92,15 +98,17 @@ public class Player : MonoBehaviour
 
     void OpenDoor()
     {
+
         Pooter[] pooters = _pooterCon.transform.GetComponentsInChildren<Pooter>();
         Horf[] horfs = _horfs.transform.GetComponentsInChildren<Horf>();
-        if(pooters.Length == 0)
+        if (pooters.Length == 0)
         {
+            //SoundController.instance.SFXPlay(SoundController.sfx.LockBreak);
             _door[0].SetActive(false);
         }
-        if (horfs.Length==0) //왼쪽문
+        if (horfs.Length == 0) //왼쪽문
         {
-
+            //SoundController.instance.SFXPlay(SoundController.sfx.LockBreak);
             _door[1].SetActive(false);
         }
 
@@ -144,6 +152,7 @@ public class Player : MonoBehaviour
         {
             isDead = true;
             Face.SetActive(false);
+            SoundController.instance.SFXPlay(SoundController.sfx.Die);
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Dead");
         }
@@ -151,6 +160,7 @@ public class Player : MonoBehaviour
         {
             _hp -= dmg;
             Face.SetActive(false);
+            SoundController.instance.SFXPlay(SoundController.sfx.Hurt);
             FullAni.SetActive(true);
             _FullAni.SetTrigger("Hitted");
             Invoke("ReturnFace", 0.6f);
@@ -164,6 +174,7 @@ public class Player : MonoBehaviour
         getShield = true;
         Debug.Log("아이템 획득!");
         Face.SetActive(false);
+        SoundController.instance.SFXPlay(SoundController.sfx.GetItem);
         FullAni.SetActive(true);
         _FullAni.SetTrigger("GetItem");
         Invoke("ReturnFace", 1f);
@@ -226,6 +237,7 @@ public class Player : MonoBehaviour
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
+                SoundController.instance.SFXPlay(SoundController.sfx.Attack);
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.right, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.right);
                 curShotDelay = 0;
@@ -237,6 +249,7 @@ public class Player : MonoBehaviour
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
+                SoundController.instance.SFXPlay(SoundController.sfx.Attack);
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.left, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.left);
                 curShotDelay = 0;
@@ -247,6 +260,7 @@ public class Player : MonoBehaviour
         {
             if (curShotDelay > maxShotDelay)
             {
+                SoundController.instance.SFXPlay(SoundController.sfx.Attack);
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.up * 3.0f, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.up);
                 curShotDelay = 0;
@@ -258,6 +272,7 @@ public class Player : MonoBehaviour
             AttackisIdle = false;
             if (curShotDelay > maxShotDelay)
             {
+                SoundController.instance.SFXPlay(SoundController.sfx.Attack);
                 GameObject Bullet = Instantiate(tear, transform.position + Vector3.down*3.0f, transform.rotation);
                 Bullet.GetComponent<PlayerBullet>().Init(Vector2.down);
                 curShotDelay = 0;
@@ -289,8 +304,9 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("Damage")&& GetComponentsInChildren<Shild>() == null)
+        if (collision.gameObject.CompareTag("Damage"))
         {
+            //&& GetComponentsInChildren<Shild>() == null
             Hitted(5);
             _gameUI.HeartIcon(_hp);
         }
@@ -303,6 +319,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("BossRoom"))
         {
+            SoundController.instance.SFXPlay(SoundController.sfx.BossDoor);
             int coin = _gameUI.getCoin();
             int key = _gameUI.getKey();
             float time = _gameUI.getTime();

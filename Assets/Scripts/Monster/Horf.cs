@@ -36,6 +36,7 @@ public class Horf : MonoBehaviour
     {
         while (true)
         {
+            SoundController.instance.SFXPlay(SoundController.sfx.horf);     
             GameObject temp = Instantiate(_horfBullet, transform.position, transform.rotation);
             temp.transform.position = transform.position;
             temp.GetComponent<HorfBullet>().Init(_target);
@@ -71,6 +72,7 @@ public class Horf : MonoBehaviour
     void Dead()
     {
         isDead = true;
+        SoundController.instance.SFXPlay(SoundController.sfx.MonDie);
         Destroy(this.gameObject);
         int ran = Random.Range(0, 10);
         Debug.Log(ran + " is ran");

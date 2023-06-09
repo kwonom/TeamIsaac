@@ -18,7 +18,7 @@ public class LobbyUI : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                SoundController.instance.SFXPlay( _clip);
+                SoundController.instance.SFXPlay(SoundController.sfx.Whoosh);
                 y = 1080f;
                 StartCoroutine(CoMoveToNext(y));
             }
@@ -27,14 +27,14 @@ public class LobbyUI : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SoundController.instance.SFXPlay( _clip);
+                SoundController.instance.SFXPlay(SoundController.sfx.Whoosh);
                 y = 0f;
                 StartCoroutine(CoMoveToforward(y));
 
             }
             else if (_button.ClickOption == true)
             {
-                SoundController.instance.SFXPlay(_clip);
+                SoundController.instance.SFXPlay(SoundController.sfx.Whoosh);
                 y = 2160f;
                 StartCoroutine(CoMoveToNext(y));
                 _button.ClickOption = false;
@@ -45,7 +45,7 @@ public class LobbyUI : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SoundController.instance.SFXPlay(_clip);
+                SoundController.instance.SFXPlay(SoundController.sfx.Whoosh);
                 y = 1080f;
                 StartCoroutine(CoMoveToforward(y));
             }

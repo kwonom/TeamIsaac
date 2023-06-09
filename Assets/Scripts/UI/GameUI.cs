@@ -11,31 +11,44 @@ public class GameUI : MonoBehaviour
     [SerializeField] GameObject _GameOver;
     [SerializeField] GameObject _OpenOption;
     [SerializeField] Player _player;
-
-
-     int _coin;
-     public int _key;
-     int _boom;
+    public int _key;
+    int _coin;
+    int _boom;
     float _currentTime = 0;
+    public static GameUI instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     private void Start()
     {
         _boom += 3;
         _text[1].text = _boom.ToString("d2");//두자리 정수 표시
-        
-        
     }
     private void Update()
     {
         _currentTime = _currentTime + Time.deltaTime;
         TimeSpan time = TimeSpan.FromSeconds(_currentTime);
         _TimerText.text = time.ToString(@"hh\:mm\:ss");
-
+        OpenOption();
         OnTimer();
         GameOver();
     }
     public void BossRoomInit()
     {
-        int hp = 0;
+       
+        int hp = _player._hp;
         int coin2 = 0;
         int boom2 = 0;
         int key2 = 0;
@@ -47,12 +60,10 @@ public class GameUI : MonoBehaviour
         _boom= boom2;
         _key = key2;
         _currentTime= currentTime2;
-
         _text[0].text = coin2.ToString("d2");
         _text[1].text = boom2.ToString("d2");
         _text[2].text = key2.ToString("d2");
         _TimerText.text = currentTime2.ToString(@"hh\:mm\:ss");
-
     }
 
     public void HeartIcon(int life)
@@ -78,6 +89,7 @@ public class GameUI : MonoBehaviour
                 heart[5].SetActive(false);
                 break;
         }
+
     }
 
     public int getCoin()
@@ -93,19 +105,23 @@ public class GameUI : MonoBehaviour
     {
         return _currentTime;
     }
-   
+  
+
     public void addCoin()
     {
+        SoundController.instance.SFXPlay(SoundController.sfx.Coin);
         _coin++;
         _text[0].text = _coin.ToString("d2");
     }
     public void addBoom()
     {
+        SoundController.instance.SFXPlay(SoundController.sfx.BoomItem);
         _boom++;
         _text[1].text = _boom.ToString("d2");
     }
     public void addKey()
     {
+        SoundController.instance.SFXPlay(SoundController.sfx.Key);
         _key++;
         _text[2].text = _key.ToString("d2");//d2 소수점 위로  / f2 소수점 아래로
                                             
@@ -157,8 +173,17 @@ public class GameUI : MonoBehaviour
     }
     
 
-    void OpenOption()
+    public void OpenOption()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
         _OpenOption.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+    public void OnBtnCloseOption()
+    {
+        _OpenOption.SetActive(false);
+        Time.timeScale = 1;
     }
 }

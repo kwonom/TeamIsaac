@@ -5,20 +5,40 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static TestSoundController;
 
 public class SoundController : MonoBehaviour
 {
     [SerializeField] AudioSource _bgmPlayer;
-
-    [SerializeField] AudioSource _sfxPlayer;
-
     [SerializeField] AudioClip[] _bgms;
+
+    [SerializeField] AudioSource[] _sfxPlayer;//동시에 여러가지 효과음이 재생이 되도록 배열로 만들어준다.
+    [SerializeField] AudioClip[] _sfxs;
+    public enum sfx 
+    {
+        Attack,
+        Hurt,
+        GetItem,
+        Die,
+        horf,
+        pooter,
+        MonDie,
+        Key,
+        BoomItem,
+        Coin,
+        Boom,
+        LockBreak,
+        BossDoor,
+        Whoosh
+    };
+    int sfxIndex;
 
     [SerializeField] Slider _fxSlider;
     [SerializeField] Slider _bgmSlider;
-
     [SerializeField] Toggle _fxMute;
     [SerializeField] Toggle _bgmMute;
+
+ 
 
     public static SoundController instance;
     float _currentTime = 0;
@@ -54,11 +74,11 @@ public class SoundController : MonoBehaviour
     }
     public void OnSfxVolumeChange()
     {
-        _sfxPlayer.volume = _fxSlider.value;
+        _sfxPlayer[sfxIndex].volume = _fxSlider.value;
     }
     public void FxMute()
     {
-        _sfxPlayer.mute = !_sfxPlayer.mute;
+        _sfxPlayer[sfxIndex].mute = !_sfxPlayer[sfxIndex].mute;
     }
     public void BgmMute()
     {
@@ -66,8 +86,6 @@ public class SoundController : MonoBehaviour
     }
     private void Awake()
     {
-        _fxSlider.value = 1;
-        _bgmSlider.value = 1;
         if (instance == null)
         {
             instance = this;
@@ -79,6 +97,7 @@ public class SoundController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Update()
     {
 
@@ -100,17 +119,64 @@ public class SoundController : MonoBehaviour
             
         }
     }
-    public void SFXPlay(AudioClip _clip)
+    public void SFXPlay(sfx type)
     {
-        _sfxPlayer.clip = _clip;
-        //_sfxPlayer.spatialBlend = 1f;
-        _sfxPlayer.volume = 1f;
-        _sfxPlayer.mute = false;
-        _sfxPlayer.Play();
+        switch (type)
+        {
+            //Player 효과음
+            case sfx.Attack://Player 눈물공격
+                _sfxPlayer[sfxIndex].clip = _sfxs[0];
+                break;
+            case sfx.Hurt://Player Hurt
+                _sfxPlayer[sfxIndex].clip = _sfxs[1];
+                break;
+            case sfx.GetItem://Player GetItem
+                _sfxPlayer[sfxIndex].clip = _sfxs[2];
+                break;
+            case sfx.Die://Player Die
+                _sfxPlayer[sfxIndex].clip = _sfxs[3];
+                break;
+            //Monster 효과음
+            case sfx.horf:
+                _sfxPlayer[sfxIndex].clip = _sfxs[4];
+                break;
+            case sfx.pooter:
+                _sfxPlayer[sfxIndex].clip = _sfxs[Random.Range(5,6)];
+                break;
+            case sfx.MonDie:
+                _sfxPlayer[sfxIndex].clip = _sfxs[7];
+                break;
+            case sfx.Key:
+                _sfxPlayer[sfxIndex].clip = _sfxs[8];
+                break;
+            case sfx.BoomItem:
+                _sfxPlayer[sfxIndex].clip = _sfxs[9];
+                break;
+            case sfx.Coin:
+                _sfxPlayer[sfxIndex].clip = _sfxs[10];
+                break;
+            case sfx.Boom:
+                _sfxPlayer[sfxIndex].clip = _sfxs[11];
+                break;
+            case sfx.LockBreak:
+                _sfxPlayer[sfxIndex].clip = _sfxs[12];
+                break;
+            case sfx.BossDoor:
+                _sfxPlayer[sfxIndex].clip = _sfxs[13];
+                break;
+            case sfx.Whoosh:
+                _sfxPlayer[sfxIndex].clip = _sfxs[14];
+                break;
+
+        }
+        _sfxPlayer[sfxIndex].volume = 1f;
+        _sfxPlayer[sfxIndex].mute = false;
+        _sfxPlayer[sfxIndex].Play();
+        sfxIndex =(sfxIndex + 1)%_sfxPlayer.Length;//나머지 0으로 다시 초기화된다.
     }
+   
     public void BgSoundPlay(AudioClip _clip)
     {
-       
         _bgmPlayer.clip= _clip;
         _bgmPlayer.loop = true;
         _bgmPlayer.volume =1f;

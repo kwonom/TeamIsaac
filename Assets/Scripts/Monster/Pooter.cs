@@ -8,6 +8,7 @@ public class Pooter : MonoBehaviour
     Animator _ani;
     SpriteRenderer _render;
     [SerializeField] GameObject[] _items;
+    [SerializeField] AudioClip _sfx;
 
 
     float _speed;
@@ -20,6 +21,8 @@ public class Pooter : MonoBehaviour
     {
         _ani = GetComponent<Animator>();
         _render = GetComponent<SpriteRenderer>();
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Horf"), LayerMask.NameToLayer("HorfBullet"));
+
     }
 
     void Update()
@@ -65,6 +68,7 @@ public class Pooter : MonoBehaviour
 
     void move()
     {
+        
         transform.Translate((_hero.position - transform.position).normalized * Time.deltaTime * _speed);
     }
 
@@ -72,6 +76,7 @@ public class Pooter : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
+            SoundController.instance.SFXPlay(SoundController.sfx.pooter);
             collision.gameObject.GetComponent<Player>().Hitted(5);
         }
         if(collision.gameObject.GetComponent<PlayerBulletDamage>() != null)
@@ -95,6 +100,7 @@ public class Pooter : MonoBehaviour
 
     void Dead()
     {
+        SoundController.instance.SFXPlay(SoundController.sfx.MonDie);
         Destroy(this.gameObject);
         int ran = Random.Range(0, 10);
         Debug.Log(ran + " is ran");
