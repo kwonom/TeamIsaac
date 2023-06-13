@@ -23,6 +23,7 @@ public class BossMonster : MonoBehaviour
     [SerializeField] int _count;
     [SerializeField] float _gap;
     [SerializeField] float _deg;
+    Collider2D _collider;
     
     EBossState _estate = EBossState.Idle;
 
@@ -47,6 +48,8 @@ public class BossMonster : MonoBehaviour
     {
         _ani = _boss.GetComponent<Animator>();
         _render = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<Collider2D>();
+        _collider.enabled = false;
         StartCoroutine(CoSpawn());
     }
 
@@ -116,7 +119,7 @@ public class BossMonster : MonoBehaviour
         if(!_isJumping)
         {
             _isJumping = true;
-            
+            _collider.enabled = false;
         }
         if(_landingtimer > 0.5f && _shadow.activeSelf == false)
         {
@@ -136,29 +139,33 @@ public class BossMonster : MonoBehaviour
         _timer += Time.deltaTime;
 
         Vector2 pos = transform.position;
-        pos.x = _target.position.x;
+        pos.x = _shadow.transform.position.x;
         transform.position = pos;
 
         if (_timer >= _timercool)
         {
             _timercool = 0;
             _estate = EBossState.Idle;
+            _collider.enabled = true;
         }
     }
 
     public void DieEnd()
     {
         _boss.SetActive(false);
+        GameUI.instance.Option();
     }
 
     public void Hitted(int damage)
     {
         _isHitted = true;
         _hp--;
+        Debug.Log("now hp : "+_hp);
         if(_hp <= 0)
         {
             _ani.Play("BossDie");
             _estate = EBossState.Die;
+            _collider.enabled = false;
         }
         else
         {
@@ -168,9 +175,10 @@ public class BossMonster : MonoBehaviour
 
     public void Spawn()
     {
-        _hp = 50;
+        _hp = 3;
         _boss.SetActive(true);
         _estate = EBossState.Idle;
+        _collider.enabled = true;
     }
 
     public void ColorChange()

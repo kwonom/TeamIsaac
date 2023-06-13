@@ -157,7 +157,7 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    void Option()
+    public void Option()
     {
         _GameOver.SetActive(true);
         Time.timeScale = 0;
