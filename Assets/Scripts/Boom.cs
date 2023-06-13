@@ -7,7 +7,7 @@ public class Boom : MonoBehaviour
     public GameObject BoomItem;
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] AudioClip _sfx;
-   
+
     public void boomEffect()
     {
         BoomItem.SetActive(true);
@@ -33,3 +33,4 @@ public class Boom : MonoBehaviour
     }
 
 }
+

@@ -84,7 +84,12 @@ public class Pooter : MonoBehaviour
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             OnHitted(damage);
         }
-        
+        if (collision.gameObject.GetComponent<BoomDamage>() != null)
+        {
+            int dmg = collision.gameObject.GetComponent<BoomDamage>().getDmg();
+            OnHitted(dmg);
+        }
+
     }
 
     void OnHitted(int hitPower)

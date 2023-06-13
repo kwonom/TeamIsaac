@@ -54,9 +54,11 @@ public class LobbyUI : MonoBehaviour
 
     IEnumerator CoMoveToNext(float y)//내려갈때
     {
+        Debug.Log("not TimeScale : "+Time.timeScale);
         while(_rectTransform.anchoredPosition.y < y)//  0<1080f || 1080<2160 
         {
-            _rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1.8f);
+            _rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1000f * Time.deltaTime);
+            //_rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1.8f);
             yield return null;
         }
     }
@@ -65,7 +67,8 @@ public class LobbyUI : MonoBehaviour
     {
         while (_rectTransform.anchoredPosition.y > y)
         {
-            _rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1.8f);
+            _rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1000f * Time.deltaTime);
+            //_rectTransform.anchoredPosition = Vector3.MoveTowards(_rectTransform.anchoredPosition, new Vector3(0, y, 0), 1.8f);
             yield return null;
         }
     }

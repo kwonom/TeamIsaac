@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
+
 
 public class GameUI : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class GameUI : MonoBehaviour
     int _boom;
     float _currentTime = 0;
     public static GameUI instance;
+    bool _isGameOverPanelOn  = false;
 
     private void Awake()
     {
@@ -29,14 +32,26 @@ public class GameUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
+    public void SetInit(int key, int coin, int boom)
+    {
+        _isGameOverPanelOn = false;
+        _boom = boom;
+        _key = key;
+        _coin = coin;
+        _text[1].text = _boom.ToString("d2");//두자리 정수 표시
+        _text[0].text = _coin.ToString("d2");
+        _text[2].text = _key.ToString("d2");
+        HeartIcon(player._hp);
+
+    }
     private void Start()
     {
-        _boom += 3;
-        _text[1].text = _boom.ToString("d2");//두자리 정수 표시
+       
+
     }
+
     private void Update()
     {
         _currentTime = _currentTime + Time.deltaTime;
@@ -64,13 +79,21 @@ public class GameUI : MonoBehaviour
         _text[0].text = coin2.ToString("d2");
         _text[1].text = boom2.ToString("d2");
         _text[2].text = key2.ToString("d2");
-        _TimerText.text = currentTime2.ToString(@"hh\:mm\:ss");
+        _TimerText.text = currentTime2.ToString(@"Time: hh\:mm\:ss");
     }
 
     public void HeartIcon(int life)
     {
         switch (life)
         {
+            case 90:
+                {
+                    for(int i = 0; i < heart.Length; i++)
+                    {
+                        heart[i].SetActive(true);
+                    }
+                }
+                break;
             case 75:
                 heart[0].SetActive(false);
                 break;
@@ -151,40 +174,78 @@ public class GameUI : MonoBehaviour
 
     void GameOver()
     {
-        if(player.IsDead == true)
+        if(player.IsDead == true&& _isGameOverPanelOn == false)
         {
+            _isGameOverPanelOn = true;
             Invoke("Option", 3.5f);
         }
     }
 
-    public void Option()
+    void Option()
     {
         _GameOver.SetActive(true);
         Time.timeScale = 0;
     }
     public void OnBtnEXIT()
     {
+        Time.timeScale = 1f;
+        _GameOver.SetActive(false);
         SceneManager.LoadScene("Lobby");
-        Time.timeScale = 1;
     }
     public void OnBtnRESTART()
     {
-        SceneManager.LoadScene("Main");
         Time.timeScale = 1f;
+        _GameOver.SetActive(false);
+        SceneManager.LoadScene("Main");
     }
-    
+
+    public bool OnOption;
 
     public void OpenOption()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-        _OpenOption.SetActive(true);
+            OnOption = true;
+            _OpenOption.SetActive(true);
             Time.timeScale = 0;
         }
     }
-    public void OnBtnCloseOption()
+
+           //if(OnOption==true)
+           // {
+           //     if (Input.GetKeyDown(KeyCode.Escape))
+           //     {
+           //         OnOption = false;
+           //         _OpenOption.SetActive(false);
+           //         Time.timeScale = 1;
+           //         OnOption = false;
+           //     }
+           // }
+    IEnumerator OnBtnCloseOption()
     {
-        _OpenOption.SetActive(false);
-        Time.timeScale = 1;
+       
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnOption = false;
+                _OpenOption.SetActive(false);
+                Time.timeScale = 1;
+                OnOption = false;
+            }
+
+        yield return null;
+        
     }
+    //public void OnBtnCloseOption()
+    //{
+    //    if(OnOption==false)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Escape))
+    //        {
+    //            _OpenOption.SetActive(false);
+    //            Time.timeScale = 1;
+    //            OnOption = false;
+    //        }
+
+    //    }
+    //}
 }

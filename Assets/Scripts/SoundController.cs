@@ -180,7 +180,7 @@ public class SoundController : MonoBehaviour
                 break;
 
         }
-        Debug.Log("index : "+sfxIndex+", "+_fxVolume+", mute : "+ _isFxMute);
+        //Debug.Log("index : "+sfxIndex+", "+_fxVolume+", mute : "+ _isFxMute);
         _sfxPlayer[sfxIndex].volume = _fxVolume;
         _sfxPlayer[sfxIndex].mute = _isFxMute;
         _sfxPlayer[sfxIndex].Play();

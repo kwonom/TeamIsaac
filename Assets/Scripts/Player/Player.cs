@@ -54,9 +54,13 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("awake player");
         GameUI.instance._player = this;
         _gameUI = GameUI.instance;
+    }
+
+    private void Start()
+    {
+        if(SceneManager.GetActiveScene().name != "BossRoom") _gameUI.SetInit(0,0,boom);//유니티 현재씬 이름 확인하기 GetActiveScene().name
     }
 
     void Update()

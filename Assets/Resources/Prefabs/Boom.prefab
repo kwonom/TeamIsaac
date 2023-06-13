@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 3424655767461140973}
   - component: {fileID: 3424655767461140978}
   - component: {fileID: -8278508517753065410}
-  - component: {fileID: -2728388148035232091}
-  - component: {fileID: 4978944489815750984}
+  - component: {fileID: 6046348392781272121}
   m_Layer: 0
   m_Name: Boom
   m_TagString: Damage
@@ -52,6 +51,7 @@ MonoBehaviour:
   after: {fileID: 3424655767990281580}
   BoomItem: {fileID: 3424655768035283825}
   boxCollider: {fileID: 3424655767990281587}
+  _sfx: {fileID: 0}
 --- !u!50 &-8278508517753065410
 Rigidbody2D:
   serializedVersion: 4
@@ -73,7 +73,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-2728388148035232091
+--- !u!114 &6046348392781272121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,22 +82,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3424655767461140972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3e921b5e9e5224282f0ae4f7f86ed0, type: 3}
+  m_Script: {fileID: 11500000, guid: 95f9db623c360ac43bebf06e90b5a360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
---- !u!114 &4978944489815750984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3424655767461140972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 776167b615772054187725768631a688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &3424655767990281580
 GameObject:
   m_ObjectHideFlags: 0
