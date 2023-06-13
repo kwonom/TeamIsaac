@@ -1,7 +1,7 @@
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _FullAni;
     [SerializeField] float _speed;
 
-    [SerializeField] GameUI _gameUI;
+    GameUI _gameUI;
     [SerializeField] CameraMove _cameraMove;
 
     [SerializeField] GameObject tear;
@@ -52,9 +52,11 @@ public class Player : MonoBehaviour
     protected bool isTouchLeft;
     public bool IsTouchLeft { get { return isTouchLeft; } set { isTouchLeft = value; } }
 
-    private void Start()
+    private void Awake()
     {
-        
+        Debug.Log("awake player");
+        GameUI.instance._player = this;
+        _gameUI = GameUI.instance;
     }
 
     void Update()
@@ -98,7 +100,7 @@ public class Player : MonoBehaviour
 
     void OpenDoor()
     {
-
+        if (_pooterCon == null) return;
         Pooter[] pooters = _pooterCon.transform.GetComponentsInChildren<Pooter>();
         Horf[] horfs = _horfs.transform.GetComponentsInChildren<Horf>();
         if (pooters.Length == 0)

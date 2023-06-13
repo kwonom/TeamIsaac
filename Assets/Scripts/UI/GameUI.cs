@@ -10,7 +10,8 @@ public class GameUI : MonoBehaviour
     [SerializeField] Text _TimerText;
     [SerializeField] GameObject _GameOver;
     [SerializeField] GameObject _OpenOption;
-    [SerializeField] Player _player;
+    Player player;
+    public Player _player { set { player = value; } }
     public int _key;
     int _coin;
     int _boom;
@@ -48,7 +49,7 @@ public class GameUI : MonoBehaviour
     public void BossRoomInit()
     {
        
-        int hp = _player._hp;
+        int hp = player._hp;
         int coin2 = 0;
         int boom2 = 0;
         int key2 = 0;
@@ -150,7 +151,7 @@ public class GameUI : MonoBehaviour
 
     void GameOver()
     {
-        if(_player.IsDead == true)
+        if(player.IsDead == true)
         {
             Invoke("Option", 3.5f);
         }

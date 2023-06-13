@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 public class BossRoomInit : MonoBehaviour
 {
     [SerializeField] Player player;
-    [SerializeField] GameUI gameUI;
     void Start()
     {
-        gameUI.BossRoomInit();
+        Debug.Log("start boss room");
+        GameUI.instance.BossRoomInit();
         player.BossRoomInit();
     }
     public void OnBtnEXIT()
@@ -20,5 +20,7 @@ public class BossRoomInit : MonoBehaviour
         SceneManager.LoadScene("BossRoom");
         Time.timeScale = 1f;
     }
+
+   
 
 }

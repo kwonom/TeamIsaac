@@ -20,7 +20,7 @@ public class Shild : MonoBehaviour
     public void ShildItem()
     {        
         _time += Time.deltaTime*2;
-        transform.localPosition = new Vector3(Mathf.Cos(_time), Mathf.Sin(_time), 0) * 2.5f;
+        transform.localPosition = new Vector3(Mathf.Cos(_time), Mathf.Sin(_time), 0) * 1.5f;
     }
 
     public int getDamage()

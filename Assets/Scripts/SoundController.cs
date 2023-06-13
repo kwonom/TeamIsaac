@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static TestSoundController;
 
 public class SoundController : MonoBehaviour
 {
@@ -33,12 +28,23 @@ public class SoundController : MonoBehaviour
     };
     int sfxIndex;
 
-    [SerializeField] Slider _fxSlider;
-    [SerializeField] Slider _bgmSlider;
-    [SerializeField] Toggle _fxMute;
-    [SerializeField] Toggle _bgmMute;
+    Slider _fxSlider;
+    Slider _bgmSlider;
+    Toggle _fxMute;
+    Toggle _bgmMute;
 
  
+
+    public void setBGMUI(Slider bgmSlider, Toggle bgmToggle)
+    {
+        _bgmSlider = bgmSlider;
+        _bgmMute = bgmToggle;
+    }
+    public void setSFXUI(Slider sfxSlider, Toggle sfxToggle)
+    {
+        _fxSlider = sfxSlider;
+        _fxMute = sfxToggle;
+    }
 
     public static SoundController instance;
     float _currentTime = 0;
@@ -47,6 +53,9 @@ public class SoundController : MonoBehaviour
     int _bomb = 0;
     int _key = 0;
     bool _shield = false;
+
+    float _fxVolume = 1;
+    bool _isFxMute = false;
 
     public void setBossSceneData(int hp, int coin, int bomb, int key, bool shield,float currentTime)
     {
@@ -68,19 +77,21 @@ public class SoundController : MonoBehaviour
         currentTime = _currentTime;
     }
 
-    public void OnBgmVolumeChange()
+    public void OnBgmVolumeChange(float f)
     {
         _bgmPlayer.volume = _bgmSlider.value;
     }
-    public void OnSfxVolumeChange()
+    public void OnSfxVolumeChange(float f)
     {
-        _sfxPlayer[sfxIndex].volume = _fxSlider.value;
+//        _sfxPlayer[sfxIndex].volume = _fxSlider.value;
+        _fxVolume = _fxSlider.value;
     }
-    public void FxMute()
+    public void FxMute(bool b)
     {
-        _sfxPlayer[sfxIndex].mute = !_sfxPlayer[sfxIndex].mute;
+        _isFxMute = !_isFxMute;
+        //_sfxPlayer[sfxIndex].mute = !_sfxPlayer[sfxIndex].mute;
     }
-    public void BgmMute()
+    public void BgmMute(bool b)
     {
         _bgmPlayer.mute = !_bgmPlayer.mute;
     }
@@ -169,8 +180,9 @@ public class SoundController : MonoBehaviour
                 break;
 
         }
-        _sfxPlayer[sfxIndex].volume = 1f;
-        _sfxPlayer[sfxIndex].mute = false;
+        Debug.Log("index : "+sfxIndex+", "+_fxVolume+", mute : "+ _isFxMute);
+        _sfxPlayer[sfxIndex].volume = _fxVolume;
+        _sfxPlayer[sfxIndex].mute = _isFxMute;
         _sfxPlayer[sfxIndex].Play();
         sfxIndex =(sfxIndex + 1)%_sfxPlayer.Length;//나머지 0으로 다시 초기화된다.
     }
@@ -179,6 +191,7 @@ public class SoundController : MonoBehaviour
     {
         _bgmPlayer.clip= _clip;
         _bgmPlayer.loop = true;
+        _bgmPlayer.playOnAwake = false;
         _bgmPlayer.volume =1f;
         _bgmPlayer.mute = false;
         _bgmPlayer.Play();
