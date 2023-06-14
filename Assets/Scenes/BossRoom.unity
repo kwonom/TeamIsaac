@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1083594643}
-  _speed: 3
+  _speed: 5
 --- !u!212 &859251874
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 1073821081}
   - component: {fileID: 1073821080}
   - component: {fileID: 1073821082}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Monstro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1889,7 +1889,7 @@ GameObject:
   - component: {fileID: 1100124772}
   - component: {fileID: 1100124774}
   - component: {fileID: 1100124773}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BossBase
   m_TagString: Damage
   m_Icon: {fileID: 0}
@@ -1925,11 +1925,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1083594643}
-  _bossBullet: {fileID: 4366302667293402889, guid: 5604199ee36d4714980892f1768c4f67, type: 3}
+  _bossBullet: {fileID: 2146895270998273817, guid: 16c04aa4acdb51645a39c146a0ca65c1, type: 3}
   _boss: {fileID: 1073821078}
   _shadow: {fileID: 859251872}
   _speed: 3
-  _count: 5
+  _count: 7
   _gap: 45
   _deg: 10
 --- !u!50 &1100124773

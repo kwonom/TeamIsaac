@@ -1,7 +1,6 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public enum EBossState
 {
@@ -38,7 +37,7 @@ public class BossMonster : MonoBehaviour
     float _attackcool = 3f;
     float _timercool = 1f;
     float _jumpcool = 1f;
-    float _ladingcool = 7f;
+    float _ladingcool = 5f;
 
     bool _isAtttack = false;
     bool _isHitted = false;
@@ -46,6 +45,7 @@ public class BossMonster : MonoBehaviour
 
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("BossBullet"));
         _ani = _boss.GetComponent<Animator>();
         _render = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
@@ -55,6 +55,8 @@ public class BossMonster : MonoBehaviour
 
     void Update()
     {
+        ColorChange();
+
         switch (_estate)
         {
             case EBossState.Idle:
@@ -153,7 +155,7 @@ public class BossMonster : MonoBehaviour
     public void DieEnd()
     {
         _boss.SetActive(false);
-        GameUI.instance.Option();
+        //GameUI.instance.Option();
     }
 
     public void Hitted(int damage)
@@ -204,7 +206,7 @@ public class BossMonster : MonoBehaviour
         temp.transform.position = transform.position;
         float deg = _deg;
         Vector3 dir = new Vector3(Mathf.Cos(deg * Mathf.Deg2Rad), Mathf.Sin(deg * Mathf.Deg2Rad), 0);
-        temp.GetComponent<HorfBullet>().Init(dir);
+        temp.GetComponent<BossBullet>().Init(dir);
     }
 
     IEnumerator CoSpawn()
