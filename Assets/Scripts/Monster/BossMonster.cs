@@ -1,4 +1,5 @@
 using System.Collections;
+using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ public class BossMonster : MonoBehaviour
     Animator _ani;
     SpriteRenderer _render;
 
-    int _hp;
+    [SerializeField] int _hp;
     float _attacktimer = 0;
     float _jumptimer = 0;
     float _timer = 0;
@@ -46,6 +47,7 @@ public class BossMonster : MonoBehaviour
     void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("BossBullet"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerBullet"), LayerMask.NameToLayer("BossBullet"));
         _ani = _boss.GetComponent<Animator>();
         _render = _boss.GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
@@ -96,13 +98,15 @@ public class BossMonster : MonoBehaviour
         _ani.Play("BossAttack");
 
         _jumptimer += Time.deltaTime;
-
+        float degx = _target.position.x - transform.position.x;
+        float degy = _target.position.y - transform.position.y;
+        float degAdd = Mathf.Atan2(degy,degx);
         if (!_isAtttack)
         {
             _isAtttack = true;
-            for(int i = 0; i < _count; i++)
+            for(int i = -_count/2; i < _count; i++)
             {
-                StartCoroutine(CoBossAttack(i * 15));
+                StartCoroutine(CoBossAttack(Mathf.Deg2Rad * ( i * _deg) + degAdd));
             }
         }
         if (_jumptimer >= _jumpcool)
@@ -177,7 +181,7 @@ public class BossMonster : MonoBehaviour
 
     public void Spawn()
     {
-        _hp = 3;
+        //_hp = 3;
         _boss.SetActive(true);
         _estate = EBossState.Idle;
         _collider.enabled = true;
@@ -204,8 +208,7 @@ public class BossMonster : MonoBehaviour
 
         GameObject temp = Instantiate(_bossBullet);
         temp.transform.position = transform.position;
-        float deg = _deg;
-        Vector3 dir = new Vector3(Mathf.Cos(deg * Mathf.Deg2Rad), Mathf.Sin(deg * Mathf.Deg2Rad), 0);
+        Vector3 dir = new Vector3(Mathf.Cos(_deg), Mathf.Sin(_deg), 0);
         temp.GetComponent<BossBullet>().Init(dir);
     }
 

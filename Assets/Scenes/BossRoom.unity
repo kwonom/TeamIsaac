@@ -2059,6 +2059,7 @@ MonoBehaviour:
   _count: 7
   _gap: 45
   _deg: 10
+  _hp: 15
 --- !u!50 &1100124773
 Rigidbody2D:
   serializedVersion: 4
