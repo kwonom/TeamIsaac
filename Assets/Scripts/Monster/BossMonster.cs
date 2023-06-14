@@ -47,7 +47,7 @@ public class BossMonster : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("BossBullet"));
         _ani = _boss.GetComponent<Animator>();
-        _render = GetComponent<SpriteRenderer>();
+        _render = _boss.GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
         _collider.enabled = false;
         StartCoroutine(CoSpawn());
@@ -155,7 +155,7 @@ public class BossMonster : MonoBehaviour
     public void DieEnd()
     {
         _boss.SetActive(false);
-        //GameUI.instance.Option();
+        GameUI.instance.Option();
     }
 
     public void Hitted(int damage)
