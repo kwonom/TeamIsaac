@@ -20,6 +20,15 @@ public class Face : MonoBehaviour
 
     public void Move()
     {
+        if (_ani.GetInteger("Attack") != 0)
+        {
+            _ani.SetLayerWeight(1,1);
+        }
+        else
+        {
+            _ani.SetLayerWeight(1,0);
+        }
+
         if (isIdle)
         {
             _ani.SetInteger("Move", 0);

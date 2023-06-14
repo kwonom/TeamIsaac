@@ -86,7 +86,7 @@ public class GameUI : MonoBehaviour
     {
         switch (life)
         {
-            case 90:
+            case >= 90:
                 {
                     for(int i = 0; i < heart.Length; i++)
                     {
@@ -94,23 +94,38 @@ public class GameUI : MonoBehaviour
                     }
                 }
                 break;
-            case 75:
+            case <= 0:
+                heart[5].SetActive(false);
+                heart[4].SetActive(false);
+                heart[3].SetActive(false);
+                heart[2].SetActive(false);
+                heart[1].SetActive(false);
                 heart[0].SetActive(false);
                 break;
-            case 60:
-                heart[1].SetActive(false);
-                break;
-            case 45:
-                heart[2].SetActive(false);
-                break;
-            case 30:
-                heart[3].SetActive(false);
-                break;
-            case 15:
+            case <= 15:
                 heart[4].SetActive(false);
+                heart[3].SetActive(false);
+                heart[2].SetActive(false);
+                heart[1].SetActive(false);
+                heart[0].SetActive(false);
                 break;
-            case 0:
-                heart[5].SetActive(false);
+            case <= 30:
+                heart[3].SetActive(false);
+                heart[2].SetActive(false);
+                heart[1].SetActive(false);
+                heart[0].SetActive(false);
+                break;
+            case <= 45:
+                heart[2].SetActive(false);
+                heart[1].SetActive(false);
+                heart[0].SetActive(false);
+                break;
+            case <= 60:
+                heart[1].SetActive(false);
+                heart[0].SetActive(false);
+                break;
+            case <= 75:
+                heart[0].SetActive(false);
                 break;
         }
 

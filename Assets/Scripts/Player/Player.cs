@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
             Destroy(_shieldObj);
             return;
         }
-        if (_hp == minHp)//Dead
+        if (_hp <= minHp)//Dead
         {
             isDead = true;
             Face.SetActive(false);
