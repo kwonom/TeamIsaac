@@ -181,7 +181,7 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    void Option()
+    public void Option()
     {
         _GameOver.SetActive(true);
         Time.timeScale = 0;
@@ -199,53 +199,19 @@ public class GameUI : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-    public bool OnOption;
 
     public void OpenOption()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnOption = true;
             _OpenOption.SetActive(true);
             Time.timeScale = 0;
         }
     }
 
-           //if(OnOption==true)
-           // {
-           //     if (Input.GetKeyDown(KeyCode.Escape))
-           //     {
-           //         OnOption = false;
-           //         _OpenOption.SetActive(false);
-           //         Time.timeScale = 1;
-           //         OnOption = false;
-           //     }
-           // }
-    IEnumerator OnBtnCloseOption()
+    public void OnBtnCloseOption()
     {
-       
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                OnOption = false;
-                _OpenOption.SetActive(false);
-                Time.timeScale = 1;
-                OnOption = false;
-            }
-
-        yield return null;
-        
+        _OpenOption.SetActive(false);
+        Time.timeScale = 1;
     }
-    //public void OnBtnCloseOption()
-    //{
-    //    if(OnOption==false)
-    //    {
-    //        if (Input.GetKeyDown(KeyCode.Escape))
-    //        {
-    //            _OpenOption.SetActive(false);
-    //            Time.timeScale = 1;
-    //            OnOption = false;
-    //        }
-
-    //    }
-    //}
 }

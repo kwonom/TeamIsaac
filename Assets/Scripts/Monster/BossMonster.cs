@@ -228,5 +228,10 @@ public class BossMonster : MonoBehaviour
             collision.gameObject.GetComponent<BulletRemove>().Remove();
             Hitted(5);
         }
+        if (collision.gameObject.GetComponent<BoomDamage>() != null)
+        {
+            int dmg = collision.gameObject.GetComponent<BoomDamage>().getDmg();
+            Hitted(dmg);
+        }
     }
 }

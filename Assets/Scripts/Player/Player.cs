@@ -31,7 +31,9 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject[] _door;
     [SerializeField] PooterController _pooterCon;
     [SerializeField] GameObject _horfs;
-   // [SerializeField] AudioClip[] _sfx;
+    // [SerializeField] AudioClip[] _sfx;
+
+    GameObject _shieldObj = null;
 
     bool isIdle = true;
     bool AttackisIdle = true;
@@ -154,6 +156,12 @@ public class Player : MonoBehaviour
 
     public void Hitted(int dmg)
     {
+        if(getShield == true)
+        {
+            GetShield = false;
+            Destroy(_shieldObj);
+            return;
+        }
         if (_hp == minHp)//Dead
         {
             isDead = true;
@@ -184,9 +192,7 @@ public class Player : MonoBehaviour
         FullAni.SetActive(true);
         _FullAni.SetTrigger("GetItem");
         Invoke("ReturnFace", 1f);
-        GameObject Temp = Instantiate(ShildItem, transform);
-
-
+        _shieldObj = Instantiate(ShildItem, transform);
     }
 
     void ReturnFace()
@@ -312,7 +318,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Damage"))
         {
-            //&& GetComponentsInChildren<Shild>() == null
+            
             Hitted(5);
             _gameUI.HeartIcon(_hp);
         }
