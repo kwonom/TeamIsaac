@@ -23,6 +23,7 @@ public class BossMonster : MonoBehaviour
     [SerializeField] int _count;
     [SerializeField] float _gap;
     [SerializeField] float _deg;
+    [SerializeField] BossUI _hpui;
     Collider2D _collider;
     
     EBossState _estate = EBossState.Idle;
@@ -31,6 +32,7 @@ public class BossMonster : MonoBehaviour
     SpriteRenderer _render;
 
     [SerializeField] int _hp;
+    int _maxhp;
     float _attacktimer = 0;
     float _jumptimer = 0;
     float _timer = 0;
@@ -52,6 +54,8 @@ public class BossMonster : MonoBehaviour
         _render = _boss.GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
         _collider.enabled = false;
+        _maxhp = _hp;
+        _hpui.BossHpChange(1f);
         StartCoroutine(CoSpawn());
     }
 
@@ -178,7 +182,8 @@ public class BossMonster : MonoBehaviour
 
         _hp--;
         Debug.Log("now hp : "+_hp);
-        if(_hp <= 0)
+        _hpui.BossHpChange((float)_hp/_maxhp);
+        if (_hp <= 0)
         {
             _ani.Play("BossDie");
             _estate = EBossState.Die;
