@@ -192,8 +192,11 @@ public class SoundController : MonoBehaviour
             case sfx.BossJump:
                 _sfxPlayer[sfxIndex].clip = _sfxs[17];
                 break;
-            case sfx.BossHurt:
+            case sfx.BossLanding:
                 _sfxPlayer[sfxIndex].clip = _sfxs[18];
+                break;
+            case sfx.BossHurt:
+                _sfxPlayer[sfxIndex].clip = _sfxs[19];
                 break;
 
         }
