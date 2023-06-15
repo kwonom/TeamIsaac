@@ -24,7 +24,12 @@ public class SoundController : MonoBehaviour
         Boom,
         LockBreak,
         BossDoor,
-        Whoosh
+        Whoosh,
+        BossMove,
+        BossAttack,
+        BossJump,
+        BossLanding,
+        BossHurt
     };
     int sfxIndex;
 
@@ -177,6 +182,18 @@ public class SoundController : MonoBehaviour
                 break;
             case sfx.Whoosh:
                 _sfxPlayer[sfxIndex].clip = _sfxs[14];
+                break;
+            case sfx.BossMove:
+                _sfxPlayer[sfxIndex].clip = _sfxs[15];
+                break;
+            case sfx.BossAttack:
+                _sfxPlayer[sfxIndex].clip = _sfxs[16];
+                break;
+            case sfx.BossJump:
+                _sfxPlayer[sfxIndex].clip = _sfxs[17];
+                break;
+            case sfx.BossHurt:
+                _sfxPlayer[sfxIndex].clip = _sfxs[18];
                 break;
 
         }

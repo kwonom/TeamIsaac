@@ -83,7 +83,7 @@ public class BossMonster : MonoBehaviour
         _ani.Play("BossMove");
 
         transform.Translate((_target.position - transform.position).normalized * _speed * Time.deltaTime);
-
+        SoundController.instance.SFXPlay(SoundController.sfx.BossMove);
         _attacktimer += Time.deltaTime;
 
         if (_attacktimer >= _attackcool)
@@ -96,7 +96,7 @@ public class BossMonster : MonoBehaviour
     public void BossAttack()
     {
         _ani.Play("BossAttack");
-
+        SoundController.instance.SFXPlay(SoundController.sfx.BossAttack);
         _jumptimer += Time.deltaTime;
         float degx = _target.position.x - transform.position.x;
         float degy = _target.position.y - transform.position.y;
@@ -119,6 +119,7 @@ public class BossMonster : MonoBehaviour
     public void BossJump()
     {
         _ani.Play("BossJump");
+        SoundController.instance.SFXPlay(SoundController.sfx.BossJump);
 
         _landingtimer += Time.deltaTime;
 
@@ -141,6 +142,8 @@ public class BossMonster : MonoBehaviour
     public void BossLanding()
     {
         _ani.Play("BossLanding");
+        SoundController.instance.SFXPlay(SoundController.sfx.BossLanding);
+
         _shadow.SetActive(false);
         _timer += Time.deltaTime;
 
@@ -165,6 +168,8 @@ public class BossMonster : MonoBehaviour
     public void Hitted(int damage)
     {
         _isHitted = true;
+        SoundController.instance.SFXPlay(SoundController.sfx.BossHurt);
+
         _hp--;
         Debug.Log("now hp : "+_hp);
         if(_hp <= 0)
