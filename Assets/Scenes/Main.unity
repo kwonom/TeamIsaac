@@ -2143,7 +2143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &347297599
 Transform:
   m_ObjectHideFlags: 0
@@ -4877,7 +4877,7 @@ MonoBehaviour:
   _hp: 90
   minHp: 0
   _dis: 100
-  boom: 99
+  boom: 3
   boomEffect: {fileID: 3424655767461140972, guid: fe825a951940bb14c8cf1f7d0082aa79, type: 3}
   _door:
   - {fileID: 814035565}
@@ -20077,7 +20077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779363194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.871166, y: 2.4, z: 0.25770772}
+  m_LocalPosition: {x: -32.871166, y: 2.13, z: 0.25770772}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
